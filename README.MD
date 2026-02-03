@@ -10,5 +10,6 @@ Le projet vise à développer une application logicielle répondant à la questi
 ## Installation
 1. Cloner le dépôt :
    ```bash
-    git clone
-   ```
+    git clone https://github.com/huang86u/IDMC-GenieLogiciel-MeteoConsommation.git
+    cd IDMC-GenieLogiciel-MeteoConsommation
+    ```
