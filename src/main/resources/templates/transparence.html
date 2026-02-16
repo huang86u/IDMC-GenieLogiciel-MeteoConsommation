@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transparence & Données</title>
+    <link rel="stylesheet" href="../static/base.css">
+    <link rel="stylesheet" href="../static/transparence.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Crimson+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">ÉlectroMétéo <span class="logo-region">Grand Est</span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="vue-ensemble.html">Vue d'ensemble</a></li>
+                <li><a href="explorer.html">Explorer</a></li>
+                <li><a href="relation.html">Relation Météo</a></li>
+                <li><a href="analyse-saisonniere.html">Saisons</a></li>
+                <li><a href="scenarios.html">Scénarios</a></li>
+                <li><a href="transparence.html" class="active">Données</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content page-transparence">
+        <header class="page-header">
+            <div class="container">
+                <h1 class="page-title">Transparence & Données</h1>
+                <p class="page-subtitle">Sources, méthodologie et reproductibilité du projet</p>
+            </div>
+        </header>
+
+        <!-- Data Sources -->
+        <section class="data-sources">
+            <div class="container">
+                <h2 class="section-title">📊 Sources de données</h2>
+
+                <div class="sources-grid">
+                    <div class="source-card primary-source">
+                        <div class="source-header">
+                            <div class="source-icon">⚡</div>
+                            <h3>Données de consommation électrique</h3>
+                        </div>
+                        <div class="source-provider">
+                            <strong>Fournisseur :</strong> RTE (Réseau de Transport d'Électricité)
+                        </div>
+                        <div class="source-dataset">
+                            <strong>Dataset :</strong> éCO2mix - Consommation régionale
+                        </div>
+                        <div class="source-link">
+                            <a href="https://www.data.gouv.fr/fr/datasets/eco2mix-national-consommation/"
+                                target="_blank" class="external-link">
+                                🔗 data.gouv.fr/eco2mix
+                            </a>
+                        </div>
+                        <div class="source-details">
+                            <h4>Caractéristiques :</h4>
+                            <ul>
+                                <li>Granularité : Données horaires agrégées au jour</li>
+                                <li>Niveau : Région Grand Est</li>
+                                <li>Variable : Consommation en MW</li>
+                                <li>Période : 1er janvier - 31 décembre 2014</li>
+                                <li>Points de données : 365 jours</li>
+                            </ul>
+                        </div>
+                        <div class="source-license">
+                            <span class="license-badge">📄 Licence Ouverte</span>
+                        </div>
+                    </div>
+
+                    <div class="source-card secondary-source">
+                        <div class="source-header">
+                            <div class="source-icon">🌤️</div>
+                            <h3>Données météorologiques</h3>
+                        </div>
+                        <div class="source-provider">
+                            <strong>Fournisseur :</strong> Météo-France
+                        </div>
+                        <div class="source-dataset">
+                            <strong>Dataset :</strong> Données climatologiques horaires
+                        </div>
+                        <div class="source-link">
+                            <a href="https://www.data.gouv.fr/fr/datasets/donnees-climatologiques-de-base-horaires/"
+                                target="_blank" class="external-link">
+                                🔗 data.gouv.fr/meteo
+                            </a>
+                        </div>
+                        <div class="source-details">
+                            <h4>Caractéristiques :</h4>
+                            <ul>
+                                <li>Granularité : Observations horaires</li>
+                                <li>Couverture : 10 départements du Grand Est</li>
+                                <li>Variables : T, U, RR1, FF</li>
+                                <li>Période : Année 2014</li>
+                                <li>Stations : Variable selon départements</li>
+                            </ul>
+                        </div>
+                        <div class="source-coverage">
+                            <h4>Couverture départementale :</h4>
+                            <div class="coverage-list">
+                                <span class="dept-badge">08</span>
+                                <span class="dept-badge">10</span>
+                                <span class="dept-badge">51</span>
+                                <span class="dept-badge">52</span>
+                                <span class="dept-badge">54</span>
+                                <span class="dept-badge">55</span>
+                                <span class="dept-badge">57</span>
+                                <span class="dept-badge">67</span>
+                                <span class="dept-badge">68</span>
+                                <span class="dept-badge">88</span>
+                            </div>
+                        </div>
+                        <div class="source-license">
+                            <span class="license-badge">📄 Licence Ouverte</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Methodology -->
+        <section class="methodology">
+            <div class="container">
+                <h2 class="section-title">🔬 Méthodologie de traitement</h2>
+
+                <div class="methodology-steps">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Import des données</h3>
+                            <p>Téléchargement automatique depuis les sources officielles via pipeline Java.</p>
+                            <div class="tech-detail">
+                                <code>Spring Boot + Apache Commons CSV</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Nettoyage et validation</h3>
+                            <p>Traitement des valeurs manquantes et détection d'anomalies :</p>
+                            <ul>
+                                <li>Suppression des valeurs aberrantes (&gt; 3σ)</li>
+                                <li>Interpolation linéaire pour valeurs manquantes</li>
+                                <li>Validation des plages acceptables</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Harmonisation temporelle</h3>
+                            <p>Synchronisation des sources :</p>
+                            <ul>
+                                <li>Conversion UTC → Europe/Paris</li>
+                                <li>Agrégation horaire en moyennes journalières</li>
+                                <li>Alignement des timestamps</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Agrégation spatiale</h3>
+                            <p>Pour les données météo au niveau station :</p>
+                            <ul>
+                                <li>Calcul de moyenne pondérée par département</li>
+                                <li>Prise en compte du nombre de stations</li>
+                                <li>Validation de la représentativité</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3>Fusion des datasets</h3>
+                            <p>Jointure sur clés communes :</p>
+                            <ul>
+                                <li>Clé : (département, date)</li>
+                                <li>Dataset unifié pour analyse</li>
+                                <li>Stockage PostgreSQL</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <h3>Analyse statistique</h3>
+                            <p>Application des méthodes :</p>
+                            <ul>
+                                <li>Corrélations (Pearson)</li>
+                                <li>Régression linéaire</li>
+                                <li>Analyses saisonnières</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Scope -->
+        <section class="project-scope">
+            <div class="container">
+                <h2 class="section-title">🎯 Périmètre de l'étude</h2>
+
+                <div class="scope-grid">
+                    <div class="scope-card">
+                        <div class="scope-icon">🗺️</div>
+                        <h3>Zone géographique</h3>
+                        <p><strong>Région Grand Est</strong> - 10 départements</p>
+                        <div class="scope-list">
+                            <div class="scope-item">08 - Ardennes</div>
+                            <div class="scope-item">10 - Aube</div>
+                            <div class="scope-item">51 - Marne</div>
+                            <div class="scope-item">52 - Haute-Marne</div>
+                            <div class="scope-item">54 - Meurthe-et-Moselle</div>
+                            <div class="scope-item">55 - Meuse</div>
+                            <div class="scope-item">57 - Moselle</div>
+                            <div class="scope-item">67 - Bas-Rhin</div>
+                            <div class="scope-item">68 - Haut-Rhin</div>
+                            <div class="scope-item">88 - Vosges</div>
+                        </div>
+                    </div>
+
+                    <div class="scope-card">
+                        <div class="scope-icon">📅</div>
+                        <h3>Période temporelle</h3>
+                        <p><strong>Année 2014 complète</strong></p>
+                        <ul>
+                            <li>Du 1er janvier au 31 décembre 2014</li>
+                            <li>365 jours analysés</li>
+                            <li>Cohérence entre sources</li>
+                        </ul>
+                        <div class="scope-note">
+                            💡 L'année 2014 garantit la disponibilité et qualité des données.
+                        </div>
+                    </div>
+
+                    <div class="scope-card">
+                        <div class="scope-icon">🔍</div>
+                        <h3>Granularité</h3>
+                        <p><strong>Journalière</strong></p>
+                        <ul>
+                            <li>Données agrégées au jour</li>
+                            <li>Analyse saisonnière fine</li>
+                            <li>Réduit le bruit horaire</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Limitations -->
+        <section class="limitations">
+            <div class="container">
+                <h2 class="section-title">⚠️ Limites et précautions</h2>
+
+                <div class="limitations-content">
+                    <div class="limitation-box">
+                        <div class="limitation-icon">🎯</div>
+                        <h3>Limites du modèle</h3>
+                        <ul>
+                            <li>Basé sur <strong>une seule année</strong> (2014)</li>
+                            <li>Régression linéaire simple</li>
+                            <li>Facteurs non modélisés : activité économique, événements</li>
+                            <li>Marge d'erreur : <strong>±120 MW</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="limitation-box">
+                        <div class="limitation-icon">📊</div>
+                        <h3>Qualité des données</h3>
+                        <ul>
+                            <li>Nombre variable de stations météo</li>
+                            <li>Possibles données manquantes ou interpolées</li>
+                            <li>Données régionales agrégées</li>
+                            <li>Variations locales non capturées</li>
+                        </ul>
+                    </div>
+
+                    <div class="limitation-box">
+                        <div class="limitation-icon">🔮</div>
+                        <h3>Généralisation</h3>
+                        <ul>
+                            <li>Conclusions spécifiques à 2014 et Grand Est</li>
+                            <li>Patterns variables selon régions</li>
+                            <li>Évolution des technologies non prise en compte</li>
+                            <li>Mix énergétique futur non modélisé</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Stack -->
+        <section class="tech-stack">
+            <div class="container">
+                <h2 class="section-title">💻 Stack technique</h2>
+
+                <div class="stack-grid">
+                    <div class="stack-card">
+                        <h3>Backend</h3>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <span class="tech-name">Java 21</span>
+                                <span class="tech-desc">Langage principal</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">Spring Boot 3.x</span>
+                                <span class="tech-desc">Framework</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">Spring Web</span>
+                                <span class="tech-desc">API REST</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">PostgreSQL</span>
+                                <span class="tech-desc">Base de données</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">Maven</span>
+                                <span class="tech-desc">Build tool</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stack-card">
+                        <h3>Frontend</h3>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <span class="tech-name">HTML5 / CSS3</span>
+                                <span class="tech-desc">Structure</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">JavaScript ES6+</span>
+                                <span class="tech-desc">Interactivité</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">SVG</span>
+                                <span class="tech-desc">Visualisations</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">Responsive Design</span>
+                                <span class="tech-desc">Mobile-first</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stack-card">
+                        <h3>DevOps</h3>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <span class="tech-name">Git</span>
+                                <span class="tech-desc">Version control</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">JUnit 5</span>
+                                <span class="tech-desc">Tests unitaires</span>
+                            </div>
+                            <div class="tech-item">
+                                <span class="tech-name">DevTools</span>
+                                <span class="tech-desc">Hot reload</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reproducibility -->
+        <section class="reproducibility">
+            <div class="container">
+                <h2 class="section-title">🔄 Reproductibilité</h2>
+
+                <div class="repro-content">
+                    <div class="repro-intro">
+                        <p>Ce projet est <strong>100% reproductible</strong>.
+                            Clonez, installez et obtenez les mêmes résultats.</p>
+                    </div>
+
+                    <div class="repro-steps">
+                        <div class="repro-step">
+                            <div class="step-icon">1️⃣</div>
+                            <div class="step-text">
+                                <h4>Cloner le dépôt</h4>
+                                <code>git clone https://github.com/votre-projet/electrometeo</code>
+                            </div>
+                        </div>
+
+                        <div class="repro-step">
+                            <div class="step-icon">2️⃣</div>
+                            <div class="step-text">
+                                <h4>Installer les dépendances</h4>
+                                <code>mvn clean install</code>
+                            </div>
+                        </div>
+
+                        <div class="repro-step">
+                            <div class="step-icon">3️⃣</div>
+                            <div class="step-text">
+                                <h4>Configurer PostgreSQL</h4>
+                                <code>Voir README.md pour configuration DB</code>
+                            </div>
+                        </div>
+
+                        <div class="repro-step">
+                            <div class="step-icon">4️⃣</div>
+                            <div class="step-text">
+                                <h4>Lancer l'application</h4>
+                                <code>mvn spring-boot:run</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="repro-note">
+                        📖 Consultez le <strong>README.md</strong> pour instructions détaillées.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Data -->
+        <section class="download-section">
+            <div class="container">
+                <h2 class="section-title">💾 Télécharger les données</h2>
+
+                <div class="download-cards">
+                    <div class="download-card">
+                        <div class="download-icon">📊</div>
+                        <h3>Données agrégées</h3>
+                        <p>Dataset final : consommation + météo par département et jour</p>
+                        <div class="download-info">
+                            <span>CSV</span>
+                            <span>~150 KB</span>
+                            <span>3 650 lignes</span>
+                        </div>
+                        <button class="btn btn-primary" onclick="downloadData('aggregated')">
+                            ⬇️ Télécharger CSV
+                        </button>
+                    </div>
+
+                    <div class="download-card">
+                        <div class="download-icon">📈</div>
+                        <h3>Résultats d'analyses</h3>
+                        <p>Corrélations, statistiques et résultats de prédiction</p>
+                        <div class="download-info">
+                            <span>JSON</span>
+                            <span>~50 KB</span>
+                            <span>-</span>
+                        </div>
+                        <button class="btn btn-primary" onclick="downloadData('analysis')">
+                            ⬇️ Télécharger JSON
+                        </button>
+                    </div>
+
+                    <div class="download-card">
+                        <div class="download-icon">📑</div>
+                        <h3>Documentation</h3>
+                        <p>Cahier des charges, rapport technique et doc API</p>
+                        <div class="download-info">
+                            <span>PDF</span>
+                            <span>~2 MB</span>
+                            <span>-</span>
+                        </div>
+                        <button class="btn btn-primary" onclick="downloadData('docs')">
+                            ⬇️ Télécharger PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Projet</h4>
+                    <p>Génie Logiciel 2026<br>Université de Lorraine</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Équipe</h4>
+                    <p>HUANG Alex, ALI Abdullah<br>et équipe</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Licence</h4>
+                    <p>
+                        Projet Open Source<br>
+                        Données sous Licence Ouverte
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ÉlectroMétéo Grand Est - Open Data</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

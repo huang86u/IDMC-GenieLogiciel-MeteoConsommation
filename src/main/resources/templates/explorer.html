@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorer par département</title>
+
+    <link rel="stylesheet" href="../static/base.css">
+    <link rel="stylesheet" href="../static/explorer.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Crimson+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <h1 class="logo-text">ÉlectroMétéo <span class="logo-region">Grand Est</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Accueil</a></li>
+                <li><a href="vue-ensemble.html" class="nav-link">Vue d'ensemble</a></li>
+                <li><a href="explorer.html" class="nav-link active">Explorer</a></li>
+                <li><a href="relation.html" class="nav-link">Relation Météo</a></li>
+                <li><a href="analyse-saisonniere.html" class="nav-link">Saisons</a></li>
+                <li><a href="scenarios.html" class="nav-link">Scénarios</a></li>
+                <li><a href="transparence.html" class="nav-link">Données</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header class="page-header-centered">
+            <div class="container">
+                <h1 class="page-title-main">Explorer par département</h1>
+                <p class="page-subtitle-main">Analysez les données en profondeur avec des filtres personnalisés</p>
+            </div>
+        </header>
+
+        <!-- Advanced Filters -->
+        <section class="section-filters">
+            <div class="container">
+                <div class="filters-container">
+                    <h2 class="filters-heading">⚙️ Filtres d'analyse</h2>
+
+                    <div class="filters-layout">
+                        <!-- Department Selection -->
+                        <div class="filter-block">
+                            <label class="filter-block-label">Départements</label>
+                            <div class="departments-grid">
+                                <label class="dept-checkbox">
+                                    <input type="checkbox" value="08" checked>
+                                    <span class="dept-text">08 - Ardennes</span>
+                                </label>
+                                <label class="dept-checkbox">
+                                    <input type="checkbox" value="10">
+                                    <span class="dept-text">10 - Aube</span>
+                                </label>
+                                <label class="dept-checkbox">
+                                    <input type="checkbox" value="51" checked>
+                                    <span class="dept-text">51 - Marne</span>
+                                </label>
+                                <label class="dept-checkbox">
+                                    <input type="checkbox" value="52">
+                                    <span class="dept-text">52 - Haute-Marne</span>
+                                </label>
+                                <label class="dept-checkbox">
+                                    <input type="checkbox" value="54" checked>
+                                    <span class="dept-text">54 - Meurthe-et-Moselle</span>
+                                </label>
+                                <label class="dept-checkbox">
+                                    <input type="checkbox" value="55">
+                                    <span class="dept-text">55 - Meuse</span>
+                                </label>
+                                <label class="dept-checkbox">
+                                    <input type="checkbox" value="57" checked>
+                                    <span class="dept-text">57 - Moselle</span>
+                                </label>
+                                <label class="dept-checkbox">
+                                    <input type="checkbox" value="67">
+                                    <span class="dept-text">67 - Bas-Rhin</span>
+                                </label>
+                                <label class="dept-checkbox">
+                                    <input type="checkbox" value="68">
+                                    <span class="dept-text">68 - Haut-Rhin</span>
+                                </label>
+                                <label class="dept-checkbox">
+                                    <input type="checkbox" value="88">
+                                    <span class="dept-text">88 - Vosges</span>
+                                </label>
+                            </div>
+                            <div class="quick-actions">
+                                <button class="quick-action-btn" onclick="selectAll()">Tous</button>
+                                <button class="quick-action-btn" onclick="selectNone()">Aucun</button>
+                                <button class="quick-action-btn" onclick="selectMountain()">Montagneux</button>
+                            </div>
+                        </div>
+
+                        <!-- Other Filters -->
+                        <div class="filter-block">
+                            <!-- Period Selection -->
+                            <label class="filter-block-label">Période</label>
+                            <div class="filter-block-content">
+                                <div class="period-inputs">
+                                    <input type="date" id="date-start" value="2014-01-01" class="period-date-input">
+                                    <span class="period-separator">→</span>
+                                    <input type="date" id="date-end" value="2014-12-31" class="period-date-input">
+                                </div>
+                            </div>
+
+                            <!-- Season Selection -->
+                            <label class="filter-block-label">Saison</label>
+                            <div class="season-options">
+                                <button class="season-option-btn active-season" data-season="all">Toute l'année</button>
+                                <button class="season-option-btn" data-season="winter">❄️ Hiver</button>
+                                <button class="season-option-btn" data-season="spring">🌸 Printemps</button>
+                                <button class="season-option-btn" data-season="summer">☀️ Été</button>
+                                <button class="season-option-btn" data-season="autumn">🍂 Automne</button>
+                            </div>
+
+                            <!-- Day Type Selection -->
+                            <label class="filter-block-label">Type de jour</label>
+                            <div class="daytype-options">
+                                <button class="daytype-option-btn active-daytype" data-type="all">Tous les
+                                    jours</button>
+                                <button class="daytype-option-btn" data-type="weekday">Semaine</button>
+                                <button class="daytype-option-btn" data-type="weekend">Week-end</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filters-actions">
+                        <button class="btn btn-primary" onclick="applyFilters()">
+                            <span class="btn-icon">🔍</span>
+                            Appliquer les filtres
+                        </button>
+                        <button class="btn btn-secondary" onclick="resetFilters()">
+                            <span class="btn-icon">↺</span>
+                            Réinitialiser
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Active Selection Summary -->
+        <section class="section-summary">
+            <div class="container">
+                <div class="summary-banner">
+                    <div class="summary-stat">
+                        <span class="summary-stat-label">Départements sélectionnés :</span>
+                        <span class="summary-stat-value" id="selected-depts">08, 51, 54, 57</span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-stat">
+                        <span class="summary-stat-label">Période :</span>
+                        <span class="summary-stat-value" id="selected-period">01/01/2014 - 31/12/2014</span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-stat">
+                        <span class="summary-stat-label">Données affichées :</span>
+                        <span class="summary-stat-value" id="data-points">1 460 points</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Charts -->
+        <section class="section-evolution-chart">
+            <div class="container">
+                <h2 class="section-title">Évolution de la consommation</h2>
+
+                <div class="evolution-controls">
+                    <div class="chart-type-selector">
+                        <button class="chart-type-btn active-chart" data-chart="line">📈 Courbe</button>
+                        <button class="chart-type-btn" data-chart="area">📊 Aires</button>
+                        <button class="chart-type-btn" data-chart="bar">📊 Barres</button>
+                    </div>
+                    <div class="chart-toggles">
+                        <label class="toggle-label">
+                            <input type="checkbox" class="toggle-checkbox" checked>
+                            <span>Afficher la température</span>
+                        </label>
+                        <label class="toggle-label">
+                            <input type="checkbox" class="toggle-checkbox">
+                            <span>Moyenne mobile (7 jours)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="evolution-chart-box">
+                    <div class="evolution-svg-container">
+                        <svg viewBox="0 0 1000 400" class="evolution-svg">
+                            <!-- Department 08 - Blue -->
+                            <path d="M 50 300 Q 150 280 250 260 T 450 220 T 650 240 T 850 280 L 950 300" fill="none"
+                                stroke="#3b82f6" stroke-width="2.5" opacity="0.8" class="chart-line" />
+
+                            <!-- Department 51 - Cyan -->
+                            <path d="M 50 280 Q 150 260 250 240 T 450 200 T 650 220 T 850 260 L 950 280" fill="none"
+                                stroke="#06b6d4" stroke-width="2.5" opacity="0.8" class="chart-line" />
+
+                            <!-- Department 54 - Green -->
+                            <path d="M 50 260 Q 150 240 250 220 T 450 180 T 650 200 T 850 240 L 950 260" fill="none"
+                                stroke="#10b981" stroke-width="2.5" opacity="0.8" class="chart-line" />
+
+                            <!-- Department 57 - Orange -->
+                            <path d="M 50 240 Q 150 220 250 200 T 450 160 T 650 180 T 850 220 L 950 240" fill="none"
+                                stroke="#f59e0b" stroke-width="2.5" opacity="0.8" class="chart-line" />
+
+                            <!-- Temperature overlay (dashed) -->
+                            <path d="M 50 350 Q 200 330 350 280 T 650 250 T 950 330" fill="none" stroke="#ef4444"
+                                stroke-width="2" stroke-dasharray="5,5" opacity="0.5" />
+
+                            <!-- Grid lines -->
+                            <line x1="50" y1="100" x2="950" y2="100" stroke="#e5e7eb" stroke-width="1" />
+                            <line x1="50" y1="200" x2="950" y2="200" stroke="#e5e7eb" stroke-width="1" />
+                            <line x1="50" y1="300" x2="950" y2="300" stroke="#e5e7eb" stroke-width="1" />
+
+                            <!-- Axis labels -->
+                            <text x="50" y="390" class="axis-label">Jan</text>
+                            <text x="250" y="390" class="axis-label">Avr</text>
+                            <text x="500" y="390" class="axis-label">Jul</text>
+                            <text x="750" y="390" class="axis-label">Oct</text>
+                            <text x="950" y="390" class="axis-label">Déc</text>
+                        </svg>
+                    </div>
+
+                    <div class="chart-legend-horizontal">
+                        <div class="legend-entry">
+                            <span class="legend-line-indicator" style="background: #3b82f6"></span>
+                            <span class="legend-entry-text">08 - Ardennes</span>
+                        </div>
+                        <div class="legend-entry">
+                            <span class="legend-line-indicator" style="background: #06b6d4"></span>
+                            <span class="legend-entry-text">51 - Marne</span>
+                        </div>
+                        <div class="legend-entry">
+                            <span class="legend-line-indicator" style="background: #10b981"></span>
+                            <span class="legend-entry-text">54 - Meurthe-et-Moselle</span>
+                        </div>
+                        <div class="legend-entry">
+                            <span class="legend-line-indicator" style="background: #f59e0b"></span>
+                            <span class="legend-entry-text">57 - Moselle</span>
+                        </div>
+                        <div class="legend-entry">
+                            <span class="legend-line-indicator" style="background: #ef4444; stroke-dasharray: 4"></span>
+                            <span class="legend-entry-text">Température</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Statistics -->
+        <section class="section-statistics">
+            <div class="container">
+                <h2 class="section-title">Statistiques détaillées</h2>
+
+                <div class="statistics-grid">
+                    <div class="stat-detailed-card">
+                        <h3 class="stat-card-title">08 - Ardennes</h3>
+                        <div class="stat-card-data">
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Moyenne annuelle</span>
+                                <strong class="stat-data-value">850 MW</strong>
+                            </div>
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Pic hivernal</span>
+                                <strong class="stat-data-value">1 200 MW</strong>
+                            </div>
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Minimum estival</span>
+                                <strong class="stat-data-value">580 MW</strong>
+                            </div>
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Variation</span>
+                                <strong class="stat-data-value highlight-variation">+107%</strong>
+                            </div>
+                        </div>
+                        <div class="stat-sparkline"></div>
+                    </div>
+
+                    <div class="stat-detailed-card">
+                        <h3 class="stat-card-title">51 - Marne</h3>
+                        <div class="stat-card-data">
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Moyenne annuelle</span>
+                                <strong class="stat-data-value">900 MW</strong>
+                            </div>
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Pic hivernal</span>
+                                <strong class="stat-data-value">1 300 MW</strong>
+                            </div>
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Minimum estival</span>
+                                <strong class="stat-data-value">620 MW</strong>
+                            </div>
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Variation</span>
+                                <strong class="stat-data-value highlight-variation">+110%</strong>
+                            </div>
+                        </div>
+                        <div class="stat-sparkline"></div>
+                    </div>
+
+                    <div class="stat-detailed-card">
+                        <h3 class="stat-card-title">54 - Meurthe-et-Moselle</h3>
+                        <div class="stat-card-data">
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Moyenne annuelle</span>
+                                <strong class="stat-data-value">950 MW</strong>
+                            </div>
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Pic hivernal</span>
+                                <strong class="stat-data-value">1 400 MW</strong>
+                            </div>
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Minimum estival</span>
+                                <strong class="stat-data-value">650 MW</strong>
+                            </div>
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Variation</span>
+                                <strong class="stat-data-value highlight-variation">+115%</strong>
+                            </div>
+                        </div>
+                        <div class="stat-sparkline"></div>
+                    </div>
+
+                    <div class="stat-detailed-card">
+                        <h3 class="stat-card-title">57 - Moselle</h3>
+                        <div class="stat-card-data">
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Moyenne annuelle</span>
+                                <strong class="stat-data-value">1 000 MW</strong>
+                            </div>
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Pic hivernal</span>
+                                <strong class="stat-data-value">1 500 MW</strong>
+                            </div>
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Minimum estival</span>
+                                <strong class="stat-data-value">680 MW</strong>
+                            </div>
+                            <div class="stat-data-row">
+                                <span class="stat-data-label">Variation</span>
+                                <strong class="stat-data-value highlight-variation">+121%</strong>
+                            </div>
+                        </div>
+                        <div class="stat-sparkline"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Local Trends -->
+        <section class="section-trends">
+            <div class="container">
+                <h2 class="section-title">Tendances locales</h2>
+
+                <div class="trends-layout">
+                    <div class="trend-box">
+                        <div class="trend-box-header">
+                            <h3 class="trend-box-title">📊 Jours de forte consommation</h3>
+                        </div>
+                        <div class="trend-box-body">
+                            <div class="trend-entry">
+                                <span class="trend-entry-date">07 janvier 2014</span>
+                                <span class="trend-entry-value high-value">1 520 MW</span>
+                                <span class="trend-entry-note">Vague de froid (-8°C)</span>
+                            </div>
+                            <div class="trend-entry">
+                                <span class="trend-entry-date">15 février 2014</span>
+                                <span class="trend-entry-value high-value">1 480 MW</span>
+                                <span class="trend-entry-note">Température négative</span>
+                            </div>
+                            <div class="trend-entry">
+                                <span class="trend-entry-date">28 décembre 2014</span>
+                                <span class="trend-entry-value high-value">1 450 MW</span>
+                                <span class="trend-entry-note">Fin d'année froide</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="trend-box">
+                        <div class="trend-box-header">
+                            <h3 class="trend-box-title">📉 Jours de faible consommation</h3>
+                        </div>
+                        <div class="trend-box-body">
+                            <div class="trend-entry">
+                                <span class="trend-entry-date">15 juillet 2014</span>
+                                <span class="trend-entry-value low-value">580 MW</span>
+                                <span class="trend-entry-note">Canicule (32°C)</span>
+                            </div>
+                            <div class="trend-entry">
+                                <span class="trend-entry-date">03 août 2014</span>
+                                <span class="trend-entry-value low-value">595 MW</span>
+                                <span class="trend-entry-note">Vacances estivales</span>
+                            </div>
+                            <div class="trend-entry">
+                                <span class="trend-entry-date">20 mai 2014</span>
+                                <span class="trend-entry-value low-value">620 MW</span>
+                                <span class="trend-entry-note">Temps doux (18°C)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Export Options -->
+        <section class="section-export">
+            <div class="container">
+                <div class="export-box">
+                    <h2 class="export-box-title">💾 Exporter les données</h2>
+                    <p class="export-box-description">Téléchargez les données filtrées pour vos propres analyses</p>
+                    <div class="export-options">
+                        <button class="btn btn-outline" onclick="downloadData('aggregated')">
+                            <span class="btn-icon">📄</span>
+                            <span class="btn-text">CSV</span>
+                        </button>
+                        <button class="btn btn-outline" onclick="downloadData('analysis')">
+                            <span class="btn-icon">📊</span>
+                            <span class="btn-text">Excel</span>
+                        </button>
+                        <button class="btn btn-outline" onclick="downloadData('docs')">
+                            <span class="btn-icon">📋</span>
+                            <span class="btn-text">JSON</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content footer-centered">
+                <div class="footer-source">
+                    <p class="footer-source-text">
+                        <span class="source-icon">📂</span>
+                        Données ouvertes issues de <a href="https://www.data.gouv.fr" target="_blank"
+                            class="source-link">data.gouv.fr</a>
+                    </p>
+                </div>
+                <div class="footer-divider"></div>
+                <div class="footer-copyright">
+                    <p>&copy; 2026 ÉlectroMétéo Grand Est - Open Data </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

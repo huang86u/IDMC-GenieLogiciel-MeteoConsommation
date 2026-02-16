@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÉlectroMétéo Grand Est - Accueil</title>
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./static/accueil.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Manrope:wght@400;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" fill="url(#logoGradient)" opacity="0.2" />
+                        <path d="M20 8L23 15L28 16L24 21L25 28L20 24L15 28L16 21L12 16L17 15L20 8Z"
+                            fill="url(#logoGradient)" />
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" style="stop-color:#3b82f6" />
+                                <stop offset="100%" style="stop-color:#06b6d4" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h1 class="logo-text">Électro<span class="logo-highlight">Météo</span> <span class="logo-region">Grand
+                        Est</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link active">Accueil</a></li>
+                <li><a href="vue-ensemble.html" class="nav-link">Vue d'ensemble</a></li>
+                <li><a href="explorer.html" class="nav-link">Explorer</a></li>
+                <li><a href="relation.html" class="nav-link">Relation Météo</a></li>
+                <li><a href="analyse-saisonniere.html" class="nav-link">Saisons</a></li>
+                <li><a href="scenarios.html" class="nav-link">Scénarios</a></li>
+                <li><a href="transparence.html" class="nav-link">Données</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2 class="hero-title">
+                <span class="hero-title-gradient">Quand la météo dicte</span>
+                <span class="hero-title-gradient">notre consommation électrique</span>
+            </h2>
+            <p class="hero-subtitle">
+                Analyse interactive de l'impact des conditions météorologiques sur la consommation
+                d'électricité dans la région Grand Est en 2014
+            </p>
+            <div class="hero-stats">
+                <div class="stat-box">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Départements</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">365</div>
+                    <div class="stat-label">Jours analysés</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">~75%</div>
+                    <div class="stat-label">Temp./Conso.</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Key Findings Section -->
+        <section class="section-findings">
+            <div class="container">
+                <h2 class="section-title">À retenir</h2>
+                <div class="findings-grid">
+                    <div class="finding-card card-winter">
+                        <div class="finding-header">
+                            <div class="finding-icon">❄️</div>
+                            <div class="finding-badge">Impact majeur</div>
+                        </div>
+                        <h3 class="finding-title">L'hiver, champion de la consommation</h3>
+                        <p class="finding-text">La consommation électrique augmente drastiquement lors des périodes
+                            froides.
+                            Chaque degré en moins peut entraîner une hausse de <strong>2 à 3% de la
+                                consommation</strong>
+                            due au chauffage électrique.</p>
+                    </div>
+                    <div class="finding-card card-temperature">
+                        <div class="finding-header">
+                            <div class="finding-icon">🌡️</div>
+                            <div class="finding-badge">Facteur clé</div>
+                        </div>
+                        <h3 class="finding-title">Température : facteur déterminant</h3>
+                        <p class="finding-text">La température est le facteur météorologique le plus corrélé à la
+                            consommation.
+                            Les variations de vent et de précipitations ont un impact bien moindre.</p>
+                    </div>
+                    <div class="finding-card card-regional">
+                        <div class="finding-header">
+                            <div class="finding-icon">🏔️</div>
+                            <div class="finding-badge">Variabilité</div>
+                        </div>
+                        <h3 class="finding-title">Disparités départementales</h3>
+                        <p class="finding-text">Les départements montagneux (Vosges, Haut-Rhin) montrent une sensibilité
+                            accrue aux variations de température par rapport aux zones de plaine.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Winter vs Summer Comparison -->
+        <section class="section-comparison">
+            <div class="container">
+                <h2 class="section-title">Hiver vs Été : le grand écart</h2>
+                <div class="comparison-wrapper">
+                    <div class="comparison-card card-winter-season">
+                        <div class="comparison-header">
+                            <div class="season-icon-large">❄️</div>
+                            <div class="season-info">
+                                <h3 class="season-name">Hiver</h3>
+                                <p class="season-period">Décembre - Février</p>
+                            </div>
+                        </div>
+                        <div class="comparison-body">
+                            <div class="main-metric">
+                                <div class="metric-value">8 500 <span class="metric-unit">MW</span></div>
+                                <div class="metric-label">Consommation moyenne</div>
+                            </div>
+                            <div class="secondary-metrics">
+                                <div class="metric-row">
+                                    <span class="metric-icon">🌡️</span>
+                                    <span class="metric-name">Température moyenne</span>
+                                    <span class="metric-data">2°C</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-icon">⚡</span>
+                                    <span class="metric-name">Pic de consommation</span>
+                                    <span class="metric-data">12 000 MW</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comparison-middle">
+                        <div class="comparison-arrow">→</div>
+                        <div class="comparison-diff-box">
+                            <div class="diff-value">+45%</div>
+                            <div class="diff-label">d'écart</div>
+                        </div>
+                        <div class="comparison-icon-center">⚡</div>
+                    </div>
+
+                    <div class="comparison-card card-summer-season">
+                        <div class="comparison-header">
+                            <div class="season-icon-large">☀️</div>
+                            <div class="season-info">
+                                <h3 class="season-name">Été</h3>
+                                <p class="season-period">Juin - Août</p>
+                            </div>
+                        </div>
+                        <div class="comparison-body">
+                            <div class="main-metric">
+                                <div class="metric-value">5 800 <span class="metric-unit">MW</span></div>
+                                <div class="metric-label">Consommation moyenne</div>
+                            </div>
+                            <div class="secondary-metrics">
+                                <div class="metric-row">
+                                    <span class="metric-icon">🌡️</span>
+                                    <span class="metric-name">Température moyenne</span>
+                                    <span class="metric-data">19°C</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-icon">⚡</span>
+                                    <span class="metric-name">Pic de consommation</span>
+                                    <span class="metric-data">7 200 MW</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Annual Evolution Chart -->
+        <section class="section-evolution">
+            <div class="container">
+                <h2 class="section-title">Évolution annuelle 2014</h2>
+                <div class="chart-wrapper">
+                    <div class="evolution-chart-container">
+                        <svg viewBox="0 0 1000 500" class="evolution-svg">
+                            <!-- Grid lines -->
+                            <g class="grid">
+                                <line x1="60" y1="50" x2="60" y2="380" stroke="#e5e7eb" stroke-width="2" />
+                                <line x1="60" y1="380" x2="950" y2="380" stroke="#e5e7eb" stroke-width="2" />
+                                <line x1="60" y1="50" x2="950" y2="50" stroke="#e5e7eb" stroke-width="0.5"
+                                    opacity="0.3" />
+                                <line x1="60" y1="130" x2="950" y2="130" stroke="#e5e7eb" stroke-width="0.5"
+                                    opacity="0.3" />
+                                <line x1="60" y1="215" x2="950" y2="215" stroke="#e5e7eb" stroke-width="0.5"
+                                    opacity="0.3" />
+                                <line x1="60" y1="300" x2="950" y2="300" stroke="#e5e7eb" stroke-width="0.5"
+                                    opacity="0.3" />
+                            </g>
+
+                            <!-- Temperature curve (blue) -->
+                            <path class="temp-curve"
+                                d="M 60 320 L 135 300 L 210 270 L 285 220 L 360 180 L 435 160 L 510 170 L 585 200 L 660 240 L 735 280 L 810 300 L 885 315 L 950 325"
+                                fill="none" stroke="url(#tempGradient)" stroke-width="4" />
+
+                            <!-- Consumption curve (orange-red) -->
+                            <path class="conso-curve"
+                                d="M 60 90 L 135 80 L 210 75 L 285 100 L 360 140 L 435 190 L 510 210 L 585 200 L 660 170 L 735 130 L 810 100 L 885 85 L 950 80"
+                                fill="none" stroke="url(#consoGradient)" stroke-width="4" />
+
+                            <!-- Gradients -->
+                            <defs>
+                                <linearGradient id="tempGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#06b6d4;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="consoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#ef4444;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+
+                            <!-- Month labels with better spacing -->
+                            <text x="60" y="410" class="month-label">Jan</text>
+                            <text x="135" y="410" class="month-label">Fév</text>
+                            <text x="210" y="410" class="month-label">Mars</text>
+                            <text x="285" y="410" class="month-label">Avr</text>
+                            <text x="360" y="410" class="month-label">Mai</text>
+                            <text x="435" y="410" class="month-label">Juin</text>
+                            <text x="510" y="410" class="month-label">Juil</text>
+                            <text x="585" y="410" class="month-label">Août</text>
+                            <text x="660" y="410" class="month-label">Sept</text>
+                            <text x="735" y="410" class="month-label">Oct</text>
+                            <text x="810" y="410" class="month-label">Nov</text>
+                            <text x="885" y="410" class="month-label">Déc</text>
+                        </svg>
+                    </div>
+
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <span class="legend-dot temp-dot"></span>
+                            <span class="legend-text">Température moyenne (°C)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot conso-dot"></span>
+                            <span class="legend-text">Consommation électrique (MW)</span>
+                        </div>
+                    </div>
+
+                    <p class="chart-info">
+                        <span class="info-icon">📊</span>
+                        Visualisation schématique - Les données réelles seront affichées dynamiquement via l'API Spring
+                        Boot
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Quality Notice -->
+        <section class="section-quality">
+            <div class="container">
+                <div class="quality-banner">
+                    <div class="quality-icon-container">
+                        <div class="quality-icon">✓</div>
+                    </div>
+                    <div class="quality-content">
+                        <h3 class="quality-title">Période étudiée : 2014</h3>
+                        <p class="quality-text">Données issues de <strong>RTE</strong> (consommation électrique) et
+                            <strong>Météo-France</strong> (conditions météorologiques), couvrant l'ensemble
+                            de la région Grand Est avec une granularité horaire agrégée au jour.
+                        </p>
+                        <div class="quality-stats">
+                            <div class="quality-stat">
+                                <span class="stat-number-sm">10</span>
+                                <span class="stat-label-sm">Départements</span>
+                            </div>
+                            <div class="quality-stat">
+                                <span class="stat-number-sm">365</span>
+                                <span class="stat-label-sm">Jours</span>
+                            </div>
+                            <div class="quality-stat">
+                                <span class="stat-number-sm">75%</span>
+                                <span class="stat-label-sm">Corrélation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="section-cta">
+            <div class="container">
+                <div class="cta-box">
+                    <h2 class="cta-title">Explorez les données en détail</h2>
+                    <p class="cta-description">Plongez dans l'analyse département par département, découvrez les
+                        tendances saisonnières
+                        et testez vos propres scénarios météorologiques</p>
+                    <div class="cta-buttons">
+                        <a href="vue-ensemble.html" class="btn btn-primary">
+                            <span class="btn-text">Vue d'ensemble Grand Est</span>
+                            <span class="btn-arrow">→</span>
+                        </a>
+                        <a href="explorer.html" class="btn btn-secondary">
+                            <span class="btn-text">Explorer par département</span>
+                            <span class="btn-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p class="footer-source">
+                        <span class="source-icon">📂</span>
+                        Données ouvertes issues de <a href="https://www.data.gouv.fr" target="_blank"
+                            class="source-link">data.gouv.fr</a>
+                    </p>
+                </div>
+                <div class="footer-copyright">
+                    <p>© 2026 ÉlectroMétéo Grand Est • Open Data </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scénarios et Estimation</title>
+    <!-- Pour la page scenarios.html -->
+    <link rel="stylesheet" href="../static/base.css">
+    <link rel="stylesheet" href="../static/scenarios.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Crimson+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">ÉlectroMétéo <span class="logo-region">Grand Est</span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="vue-ensemble.html">Vue d'ensemble</a></li>
+                <li><a href="explorer.html">Explorer</a></li>
+                <li><a href="relation.html">Relation Météo</a></li>
+                <li><a href="analyse-saisonniere.html">Saisons</a></li>
+                <li><a href="scenarios.html" class="active">Scénarios</a></li>
+                <li><a href="transparence.html">Données</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content page-scenarios">
+        <header class="page-header">
+            <div class="container">
+                <h1 class="page-title">Scénarios & Estimation</h1>
+                <p class="page-subtitle">Estimez la consommation électrique selon différentes conditions météorologiques
+                </p>
+            </div>
+        </header>
+
+        <!-- Interactive Scenario Builder -->
+        <section class="scenario-builder">
+            <div class="container">
+                <h2 class="section-title">🎯 Créez votre scénario</h2>
+
+                <div class="builder-panel">
+                    <div class="builder-form">
+                        <div class="form-section">
+                            <h3>Conditions météorologiques</h3>
+
+                            <div class="form-group">
+                                <label for="temp-input">🌡️ Température moyenne</label>
+                                <div class="slider-container">
+                                    <input type="range" id="temp-input" min="-10" max="35" value="15" step="1"
+                                        class="temperature-slider">
+                                    <div class="slider-value">
+                                        <span id="temp-display">15</span>°C
+                                    </div>
+                                </div>
+                                <div class="slider-markers">
+                                    <span>-10°C</span>
+                                    <span>0°C</span>
+                                    <span>15°C</span>
+                                    <span>35°C</span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="wind-input">💨 Vent (km/h)</label>
+                                    <div class="input-with-unit">
+                                        <input type="number" id="wind-input" min="0" max="100" value="15"
+                                            class="number-input">
+                                        <span class="input-unit">km/h</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="humidity-input">💧 Humidité (%)</label>
+                                    <div class="input-with-unit">
+                                        <input type="number" id="humidity-input" min="0" max="100" value="70"
+                                            class="number-input">
+                                        <span class="input-unit">%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="precipitation-input">🌧️ Précipitations (mm)</label>
+                                <div class="input-with-unit">
+                                    <input type="number" id="precipitation-input" min="0" max="50" value="2" step="0.5"
+                                        class="number-input">
+                                    <span class="input-unit">mm</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Paramètres contextuels</h3>
+
+                            <div class="form-group">
+                                <label for="dept-scenario">Département</label>
+                                <select id="dept-scenario" class="select-input">
+                                    <option value="57" selected>57 - Moselle</option>
+                                    <option value="08">08 - Ardennes</option>
+                                    <option value="10">10 - Aube</option>
+                                    <option value="51">51 - Marne</option>
+                                    <option value="52">52 - Haute-Marne</option>
+                                    <option value="54">54 - Meurthe-et-Moselle</option>
+                                    <option value="55">55 - Meuse</option>
+                                    <option value="67">67 - Bas-Rhin</option>
+                                    <option value="68">68 - Haut-Rhin</option>
+                                    <option value="88">88 - Vosges</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="season-scenario">Saison</label>
+                                <select id="season-scenario" class="select-input">
+                                    <option value="winter">❄️ Hiver</option>
+                                    <option value="spring">🌸 Printemps</option>
+                                    <option value="summer">☀️ Été</option>
+                                    <option value="autumn" selected>🍂 Automne</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Type de jour</label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="day-type" value="weekday" checked>
+                                        Semaine
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="day-type" value="weekend">
+                                        Week-end
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary btn-large" onclick="calculateScenario()">
+                                🔮 Calculer l'estimation
+                            </button>
+                            <button class="btn btn-secondary" onclick="resetScenario()">
+                                ↺ Réinitialiser
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results Panel -->
+                    <div class="results-panel" id="results-panel">
+                        <div class="results-header">
+                            <h3>💡 Estimation de consommation</h3>
+                            <span class="results-badge">Basé sur le modèle 2014</span>
+                        </div>
+
+                        <div class="estimation-main">
+                            <div class="estimation-value" id="estimation-value">
+                                <span class="value-number">870</span>
+                                <span class="value-unit">MW</span>
+                            </div>
+                            <div class="estimation-label">Consommation estimée</div>
+                        </div>
+
+                        <div class="estimation-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Département :</span>
+                                <span class="detail-value" id="result-dept">57 - Moselle</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Saison :</span>
+                                <span class="detail-value" id="result-season">Automne</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Type de jour :</span>
+                                <span class="detail-value" id="result-daytype">Semaine</span>
+                            </div>
+                        </div>
+
+                        <div class="estimation-comparison">
+                            <h4>Comparaison avec la moyenne</h4>
+                            <div class="comparison-bar-container">
+                                <div class="comparison-bar">
+                                    <div class="bar-fill-animated" id="comparison-fill" style="width: 87%"></div>
+                                </div>
+                                <div class="comparison-labels">
+                                    <span>0 MW</span>
+                                    <span>Moyenne: 1000 MW</span>
+                                </div>
+                            </div>
+                            <div class="comparison-diff" id="comparison-text">
+                                <span class="diff-icon">↓</span>
+                                <span class="diff-value">-13%</span>
+                                <span class="diff-label">par rapport à la moyenne départementale</span>
+                            </div>
+                        </div>
+
+                        <div class="estimation-breakdown">
+                            <h4>Facteurs d'influence</h4>
+                            <div class="influence-bars">
+                                <div class="influence-item">
+                                    <div class="influence-label">
+                                        <span>🌡️ Température</span>
+                                        <strong>+65%</strong>
+                                    </div>
+                                    <div class="influence-bar">
+                                        <div class="influence-fill" style="width: 65%; background: #3b82f6"></div>
+                                    </div>
+                                </div>
+                                <div class="influence-item">
+                                    <div class="influence-label">
+                                        <span>📅 Saison</span>
+                                        <strong>+20%</strong>
+                                    </div>
+                                    <div class="influence-bar">
+                                        <div class="influence-fill" style="width: 20%; background: #10b981"></div>
+                                    </div>
+                                </div>
+                                <div class="influence-item">
+                                    <div class="influence-label">
+                                        <span>🗓️ Type de jour</span>
+                                        <strong>+10%</strong>
+                                    </div>
+                                    <div class="influence-bar">
+                                        <div class="influence-fill" style="width: 10%; background: #f59e0b"></div>
+                                    </div>
+                                </div>
+                                <div class="influence-item">
+                                    <div class="influence-label">
+                                        <span>💨 Autres facteurs</span>
+                                        <strong>+5%</strong>
+                                    </div>
+                                    <div class="influence-bar">
+                                        <div class="influence-fill" style="width: 5%; background: #94a3b8"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="confidence-indicator">
+                            <div class="confidence-header">
+                                <span>📊 Fiabilité de l'estimation</span>
+                                <strong>82%</strong>
+                            </div>
+                            <p class="confidence-note">Basé sur 365 jours de données historiques 2014</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Predefined Scenarios -->
+        <section class="predefined-scenarios">
+            <div class="container">
+                <h2 class="section-title">📋 Scénarios prédéfinis</h2>
+                <p class="section-description">Explorez des situations météo typiques et leur impact estimé</p>
+
+                <div class="scenarios-grid">
+                    <div class="scenario-card scenario-cold">
+                        <div class="scenario-header">
+                            <div class="scenario-icon">🥶</div>
+                            <h3>Vague de froid</h3>
+                        </div>
+                        <div class="scenario-params">
+                            <div class="param-item">
+                                <span>Température :</span>
+                                <strong>-5°C</strong>
+                            </div>
+                            <div class="param-item">
+                                <span>Vent :</span>
+                                <strong>25 km/h</strong>
+                            </div>
+                            <div class="param-item">
+                                <span>Saison :</span>
+                                <strong>Hiver</strong>
+                            </div>
+                        </div>
+                        <div class="scenario-result">
+                            <div class="result-value high">1 350 MW</div>
+                            <div class="result-label">Estimation</div>
+                        </div>
+                        <button class="btn btn-outline btn-small" onclick="loadScenario('cold')">
+                            Charger ce scénario
+                        </button>
+                    </div>
+
+                    <div class="scenario-card scenario-mild">
+                        <div class="scenario-header">
+                            <div class="scenario-icon">🌤️</div>
+                            <h3>Journée douce</h3>
+                        </div>
+                        <div class="scenario-params">
+                            <div class="param-item">
+                                <span>Température :</span>
+                                <strong>18°C</strong>
+                            </div>
+                            <div class="param-item">
+                                <span>Vent :</span>
+                                <strong>10 km/h</strong>
+                            </div>
+                            <div class="param-item">
+                                <span>Saison :</span>
+                                <strong>Printemps</strong>
+                            </div>
+                        </div>
+                        <div class="scenario-result">
+                            <div class="result-value low">650 MW</div>
+                            <div class="result-label">Estimation</div>
+                        </div>
+                        <button class="btn btn-outline btn-small" onclick="loadScenario('mild')">
+                            Charger ce scénario
+                        </button>
+                    </div>
+
+                    <div class="scenario-card scenario-hot">
+                        <div class="scenario-header">
+                            <div class="scenario-icon">🔥</div>
+                            <h3>Canicule</h3>
+                        </div>
+                        <div class="scenario-params">
+                            <div class="param-item">
+                                <span>Température :</span>
+                                <strong>33°C</strong>
+                            </div>
+                            <div class="param-item">
+                                <span>Vent :</span>
+                                <strong>5 km/h</strong>
+                            </div>
+                            <div class="param-item">
+                                <span>Saison :</span>
+                                <strong>Été</strong>
+                            </div>
+                        </div>
+                        <div class="scenario-result">
+                            <div class="result-value medium">720 MW</div>
+                            <div class="result-label">Estimation</div>
+                        </div>
+                        <button class="btn btn-outline btn-small" onclick="loadScenario('hot')">
+                            Charger ce scénario
+                        </button>
+                    </div>
+
+                    <div class="scenario-card scenario-storm">
+                        <div class="scenario-header">
+                            <div class="scenario-icon">⛈️</div>
+                            <h3>Tempête</h3>
+                        </div>
+                        <div class="scenario-params">
+                            <div class="param-item">
+                                <span>Température :</span>
+                                <strong>8°C</strong>
+                            </div>
+                            <div class="param-item">
+                                <span>Vent :</span>
+                                <strong>70 km/h</strong>
+                            </div>
+                            <div class="param-item">
+                                <span>Saison :</span>
+                                <strong>Automne</strong>
+                            </div>
+                        </div>
+                        <div class="scenario-result">
+                            <div class="result-value medium-high">980 MW</div>
+                            <div class="result-label">Estimation</div>
+                        </div>
+                        <button class="btn btn-outline btn-small" onclick="loadScenario('storm')">
+                            Charger ce scénario
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Department Comparison -->
+        <section class="dept-comparison-scenario">
+            <div class="container">
+                <h2 class="section-title">⚖️ Comparaison départementale</h2>
+                <p class="section-description">Comparez la consommation estimée entre deux départements pour les mêmes
+                    conditions</p>
+
+                <div class="comparison-setup">
+                    <div class="comparison-selects">
+                        <div class="dept-select-box">
+                            <label>Département A</label>
+                            <select id="dept-a" class="select-input">
+                                <option value="57" selected>57 - Moselle</option>
+                                <option value="08">08 - Ardennes</option>
+                                <option value="54">54 - Meurthe-et-Moselle</option>
+                                <option value="67">67 - Bas-Rhin</option>
+                                <option value="88">88 - Vosges</option>
+                            </select>
+                        </div>
+                        <div class="vs-divider">VS</div>
+                        <div class="dept-select-box">
+                            <label>Département B</label>
+                            <select id="dept-b" class="select-input">
+                                <option value="08">08 - Ardennes</option>
+                                <option value="54">54 - Meurthe-et-Moselle</option>
+                                <option value="67">67 - Bas-Rhin</option>
+                                <option value="88" selected>88 - Vosges</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="compareDeparts()">
+                        Comparer
+                    </button>
+                </div>
+
+                <div class="comparison-results" id="dept-comparison-results">
+                    <div class="dept-result-card">
+                        <h4>57 - Moselle</h4>
+                        <div class="dept-result-value">1 000 MW</div>
+                        <div class="dept-result-bar">
+                            <div class="bar-fill-dept" style="width: 100%; background: #3b82f6"></div>
+                        </div>
+                        <div class="dept-result-details">
+                            <span>Population : 1M hab</span>
+                            <span>Sensibilité : Moyenne</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-arrow">
+                        <div class="arrow-icon">→</div>
+                        <div class="arrow-diff">+30%</div>
+                    </div>
+
+                    <div class="dept-result-card">
+                        <h4>88 - Vosges</h4>
+                        <div class="dept-result-value">770 MW</div>
+                        <div class="dept-result-bar">
+                            <div class="bar-fill-dept" style="width: 77%; background: #ef4444"></div>
+                        </div>
+                        <div class="dept-result-details">
+                            <span>Population : 370K hab</span>
+                            <span>Sensibilité : Élevée</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comparison-explanation">
+                    <div class="explanation-icon">💡</div>
+                    <p>La Moselle consomme plus que les Vosges principalement en raison de sa
+                        <strong>population plus importante</strong> et de son <strong>tissu industriel
+                            développé</strong>.
+                        Cependant, les Vosges montrent une <strong>sensibilité accrue aux variations de
+                            température</strong>
+                        en raison de leur relief montagneux.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Model Information -->
+        <section class="model-info">
+            <div class="container">
+                <div class="info-card-large">
+                    <div class="info-header">
+                        <span class="info-icon">🤖</span>
+                        <h3>À propos du modèle de prédiction</h3>
+                    </div>
+                    <div class="info-content">
+                        <p>Les estimations sont basées sur un <strong>modèle de régression linéaire</strong>
+                            entraîné sur les données 2014 du Grand Est. Le modèle prend en compte :</p>
+                        <ul class="info-list">
+                            <li>✓ La température (facteur principal avec ~67% d'influence)</li>
+                            <li>✓ La saison (correction contextuelle)</li>
+                            <li>✓ Le type de jour (semaine vs week-end)</li>
+                            <li>✓ Les caractéristiques départementales</li>
+                        </ul>
+                        <div class="info-metrics">
+                            <div class="metric-small">
+                                <strong>R² = 0.75</strong>
+                                <span>Coefficient de détermination</span>
+                            </div>
+                            <div class="metric-small">
+                                <strong>±120 MW</strong>
+                                <span>Erreur moyenne</span>
+                            </div>
+                        </div>
+                        <p class="info-note">
+                            ⚠️ Ces estimations sont indicatives et basées sur des données historiques.
+                            La consommation réelle peut varier selon d'autres facteurs non modélisés
+                            (activité économique, événements spéciaux, etc.).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Projet</h4>
+                    <p>Génie Logiciel 2026<br>Université de Lorraine</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Équipe</h4>
+                    <p>HUANG Alex, ALI Abdullah<br>et équipe</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Sources</h4>
+                    <p>
+                        <a href="https://www.data.gouv.fr" target="_blank">data.gouv.fr</a><br>
+                        <a href="transparence.html">Voir les détails</a>
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ÉlectroMétéo Grand Est - Open Data</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
