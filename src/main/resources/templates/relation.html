@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relation Météo-Consommation</title>
+
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="relation.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Crimson+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon"></span>
+                <span class="logo-text">ÉlectroMétéo <span class="logo-region">Grand Est</span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="vue-ensemble.html">Vue d'ensemble</a></li>
+                <li><a href="explorer.html">Explorer</a></li>
+                <li><a href="relation.html" class="active">Relation Météo</a></li>
+                <li><a href="analyse-saisonniere.html">Saisons</a></li>
+                <li><a href="scenarios.html">Scénarios</a></li>
+                <li><a href="transparence.html">Données</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content page-relation">
+        <header class="page-header">
+            <div class="container">
+                <h1 class="page-title">Relation Météo & Consommation</h1>
+                <p class="page-subtitle">Comprendre l'impact des conditions météorologiques sur notre consommation d'électricité</p>
+            </div>
+        </header>
+
+        <!-- Main Correlation Section -->
+        <section class="correlation-section">
+            <div class="container">
+                <h2 class="section-title">Température vs Consommation</h2>
+                
+                <div class="correlation-intro">
+                    <div class="correlation-highlight">
+                        <div class="correlation-value">-0.82</div>
+                        <div class="correlation-label">Coefficient de corrélation</div>
+                        <p class="correlation-note">
+                            Une corrélation négative forte : plus il fait froid, plus on consomme d'électricité
+                        </p>
+                    </div>
+                </div>
+
+                <div class="scatter-container">
+                    <div class="scatter-plot">
+                        <svg viewBox="0 0 600 400" class="scatter-svg">
+                            <!-- Axes -->
+                            <line x1="60" y1="350" x2="560" y2="350" stroke="#9ca3af" stroke-width="2"/>
+                            <line x1="60" y1="50" x2="60" y2="350" stroke="#9ca3af" stroke-width="2"/>
+                            
+                            <!-- Trend line -->
+                            <line x1="80" y1="100" x2="540" y2="320" stroke="#ef4444" stroke-width="3" opacity="0.6" stroke-dasharray="8,4"/>
+                            
+                            <!-- Data points - scattered -->
+                            <!-- Cold temperatures (left side) - high consumption (top) -->
+                            <circle cx="90" cy="110" r="4" fill="#3b82f6" opacity="0.6"/>
+                            <circle cx="95" cy="95" r="4" fill="#3b82f6" opacity="0.6"/>
+                            <circle cx="105" cy="125" r="4" fill="#3b82f6" opacity="0.6"/>
+                            <circle cx="110" cy="105" r="4" fill="#3b82f6" opacity="0.6"/>
+                            <circle cx="120" cy="115" r="4" fill="#3b82f6" opacity="0.6"/>
+                            <circle cx="125" cy="130" r="4" fill="#3b82f6" opacity="0.6"/>
+                            <circle cx="130" cy="120" r="4" fill="#3b82f6" opacity="0.6"/>
+                            
+                            <!-- Medium-cold temperatures -->
+                            <circle cx="180" cy="150" r="4" fill="#06b6d4" opacity="0.6"/>
+                            <circle cx="190" cy="165" r="4" fill="#06b6d4" opacity="0.6"/>
+                            <circle cx="200" cy="155" r="4" fill="#06b6d4" opacity="0.6"/>
+                            <circle cx="210" cy="175" r="4" fill="#06b6d4" opacity="0.6"/>
+                            <circle cx="220" cy="160" r="4" fill="#06b6d4" opacity="0.6"/>
+                            <circle cx="230" cy="180" r="4" fill="#06b6d4" opacity="0.6"/>
+                            
+                            <!-- Moderate temperatures -->
+                            <circle cx="280" cy="200" r="4" fill="#10b981" opacity="0.6"/>
+                            <circle cx="290" cy="215" r="4" fill="#10b981" opacity="0.6"/>
+                            <circle cx="300" cy="205" r="4" fill="#10b981" opacity="0.6"/>
+                            <circle cx="310" cy="220" r="4" fill="#10b981" opacity="0.6"/>
+                            <circle cx="320" cy="210" r="4" fill="#10b981" opacity="0.6"/>
+                            <circle cx="330" cy="225" r="4" fill="#10b981" opacity="0.6"/>
+                            
+                            <!-- Warm temperatures -->
+                            <circle cx="380" cy="245" r="4" fill="#f59e0b" opacity="0.6"/>
+                            <circle cx="390" cy="260" r="4" fill="#f59e0b" opacity="0.6"/>
+                            <circle cx="400" cy="250" r="4" fill="#f59e0b" opacity="0.6"/>
+                            <circle cx="410" cy="265" r="4" fill="#f59e0b" opacity="0.6"/>
+                            <circle cx="420" cy="255" r="4" fill="#f59e0b" opacity="0.6"/>
+                            
+                            <!-- Hot temperatures (right side) - low consumption (bottom) -->
+                            <circle cx="470" cy="290" r="4" fill="#ef4444" opacity="0.6"/>
+                            <circle cx="480" cy="305" r="4" fill="#ef4444" opacity="0.6"/>
+                            <circle cx="490" cy="295" r="4" fill="#ef4444" opacity="0.6"/>
+                            <circle cx="500" cy="310" r="4" fill="#ef4444" opacity="0.6"/>
+                            <circle cx="510" cy="300" r="4" fill="#ef4444" opacity="0.6"/>
+                            <circle cx="520" cy="315" r="4" fill="#ef4444" opacity="0.6"/>
+                            <circle cx="530" cy="305" r="4" fill="#ef4444" opacity="0.6"/>
+                            
+                            <!-- Axis labels -->
+                            <text x="300" y="385" text-anchor="middle" class="axis-label">Température (°C)</text>
+                            <text x="20" y="200" text-anchor="middle" transform="rotate(-90 20 200)" class="axis-label">Consommation (MW)</text>
+                            
+                            <!-- Temperature markers -->
+                            <text x="80" y="365" class="tick-label">-5</text>
+                            <text x="200" y="365" class="tick-label">5</text>
+                            <text x="310" y="365" class="tick-label">15</text>
+                            <text x="420" y="365" class="tick-label">25</text>
+                            <text x="530" y="365" class="tick-label">35</text>
+                            
+                            <!-- Consumption markers -->
+                            <text x="45" y="120" class="tick-label">1200</text>
+                            <text x="45" y="200" class="tick-label">900</text>
+                            <text x="45" y="280" class="tick-label">600</text>
+                        </svg>
+                    </div>
+                    
+                    <div class="scatter-explanation">
+                        <h3>📈 Lecture du graphique</h3>
+                        <p>Chaque point représente une journée de l'année 2014. La ligne rouge montre 
+                        la tendance générale : la consommation diminue à mesure que la température augmente.</p>
+                        
+                        <div class="key-zones">
+                            <div class="zone-item">
+                                <div class="zone-color" style="background: #3b82f6"></div>
+                                <div class="zone-info">
+                                    <strong>Zone froide (&lt; 5°C)</strong>
+                                    <p>Forte consommation due au chauffage</p>
+                                </div>
+                            </div>
+                            <div class="zone-item">
+                                <div class="zone-color" style="background: #10b981"></div>
+                                <div class="zone-info">
+                                    <strong>Zone confort (10-20°C)</strong>
+                                    <p>Consommation modérée et stable</p>
+                                </div>
+                            </div>
+                            <div class="zone-item">
+                                <div class="zone-color" style="background: #ef4444"></div>
+                                <div class="zone-info">
+                                    <strong>Zone chaude (&gt; 25°C)</strong>
+                                    <p>Faible consommation, légère hausse avec climatisation</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Temperature Ranges Analysis -->
+        <section class="ranges-section">
+            <div class="container">
+                <h2 class="section-title">Consommation par tranche de température</h2>
+                
+                <div class="ranges-grid">
+                    <div class="range-card cold">
+                        <div class="range-icon">🥶</div>
+                        <div class="range-temp">&lt; 0°C</div>
+                        <div class="range-conso">1 250 MW</div>
+                        <div class="range-label">Moyenne</div>
+                        <div class="range-bar">
+                            <div class="range-fill" style="width: 100%; background: linear-gradient(to right, #3b82f6, #60a5fa)"></div>
+                        </div>
+                        <div class="range-note">🔥 Chauffage à plein régime</div>
+                    </div>
+
+                    <div class="range-card cool">
+                        <div class="range-icon">❄️</div>
+                        <div class="range-temp">0 - 5°C</div>
+                        <div class="range-conso">1 100 MW</div>
+                        <div class="range-label">Moyenne</div>
+                        <div class="range-bar">
+                            <div class="range-fill" style="width: 88%; background: linear-gradient(to right, #06b6d4, #22d3ee)"></div>
+                        </div>
+                        <div class="range-note">Chauffage nécessaire</div>
+                    </div>
+
+                    <div class="range-card mild-cold">
+                        <div class="range-icon">🌤️</div>
+                        <div class="range-temp">5 - 10°C</div>
+                        <div class="range-conso">950 MW</div>
+                        <div class="range-label">Moyenne</div>
+                        <div class="range-bar">
+                            <div class="range-fill" style="width: 76%; background: linear-gradient(to right, #10b981, #34d399)"></div>
+                        </div>
+                        <div class="range-note">Chauffage modéré</div>
+                    </div>
+
+                    <div class="range-card mild">
+                        <div class="range-icon">☁️</div>
+                        <div class="range-temp">10 - 15°C</div>
+                        <div class="range-conso">800 MW</div>
+                        <div class="range-label">Moyenne</div>
+                        <div class="range-bar">
+                            <div class="range-fill" style="width: 64%; background: linear-gradient(to right, #84cc16, #a3e635)"></div>
+                        </div>
+                        <div class="range-note">Zone de confort</div>
+                    </div>
+
+                    <div class="range-card warm">
+                        <div class="range-icon">☀️</div>
+                        <div class="range-temp">15 - 20°C</div>
+                        <div class="range-conso">720 MW</div>
+                        <div class="range-label">Moyenne</div>
+                        <div class="range-bar">
+                            <div class="range-fill" style="width: 58%; background: linear-gradient(to right, #fbbf24, #fcd34d)"></div>
+                        </div>
+                        <div class="range-note">Minimum de consommation</div>
+                    </div>
+
+                    <div class="range-card hot">
+                        <div class="range-icon">🔥</div>
+                        <div class="range-temp">&gt; 20°C</div>
+                        <div class="range-conso">680 MW</div>
+                        <div class="range-label">Moyenne</div>
+                        <div class="range-bar">
+                            <div class="range-fill" style="width: 54%; background: linear-gradient(to right, #f59e0b, #fb923c)"></div>
+                        </div>
+                        <div class="range-note">❄️ Climatisation ponctuelle</div>
+                    </div>
+                </div>
+
+                <div class="ranges-insight">
+                    <div class="insight-icon">💡</div>
+                    <div class="insight-content">
+                        <h3>Enseignement clé</h3>
+                        <p>La consommation électrique peut varier de <strong>plus de 80%</strong> entre une 
+                        journée très froide et une journée tempérée. Le chauffage électrique représente le 
+                        principal facteur de cette variation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other Weather Factors -->
+        <section class="other-factors-section">
+            <div class="container">
+                <h2 class="section-title">Autres facteurs météorologiques</h2>
+                
+                <div class="factors-grid">
+                    <div class="factor-card">
+                        <div class="factor-header">
+                            <div class="factor-icon">💨</div>
+                            <h3>Vent</h3>
+                        </div>
+                        <div class="factor-correlation">
+                            <span class="correlation-badge low">Corrélation faible</span>
+                            <span class="correlation-number">-0.23</span>
+                        </div>
+                        <p>La vitesse du vent a un impact limité sur la consommation. 
+                        Toutefois, les vents froids peuvent légèrement augmenter les besoins en chauffage.</p>
+                        <div class="mini-chart">
+                            <div class="mini-bar" style="height: 30%; background: #94a3b8"></div>
+                        </div>
+                    </div>
+
+                    <div class="factor-card">
+                        <div class="factor-header">
+                            <div class="factor-icon">🌧️</div>
+                            <h3>Précipitations</h3>
+                        </div>
+                        <div class="factor-correlation">
+                            <span class="correlation-badge very-low">Corrélation très faible</span>
+                            <span class="correlation-number">-0.12</span>
+                        </div>
+                        <p>Les précipitations influencent peu la consommation électrique directement. 
+                        L'effet principal passe par la température associée.</p>
+                        <div class="mini-chart">
+                            <div class="mini-bar" style="height: 15%; background: #cbd5e1"></div>
+                        </div>
+                    </div>
+
+                    <div class="factor-card">
+                        <div class="factor-header">
+                            <div class="factor-icon">💧</div>
+                            <h3>Humidité</h3>
+                        </div>
+                        <div class="factor-correlation">
+                            <span class="correlation-badge very-low">Corrélation très faible</span>
+                            <span class="correlation-number">+0.08</span>
+                        </div>
+                        <p>L'humidité relative n'a quasiment aucun impact direct sur la consommation 
+                        dans notre région.</p>
+                        <div class="mini-chart">
+                            <div class="mini-bar" style="height: 10%; background: #e2e8f0"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seasonal Comparison -->
+        <section class="seasonal-relation">
+            <div class="container">
+                <h2 class="section-title">Relation par saison</h2>
+                
+                <div class="seasonal-cards">
+                    <div class="season-relation-card winter-card">
+                        <div class="season-header">
+                            <h3>❄️ Hiver</h3>
+                            <span class="season-period">Déc - Fév</span>
+                        </div>
+                        <div class="season-correlation">
+                            <div class="correlation-value">-0.88</div>
+                            <div class="correlation-text">Corrélation très forte</div>
+                        </div>
+                        <p>En hiver, chaque degré compte ! La relation température-consommation 
+                        est particulièrement marquée pendant cette période.</p>
+                        <div class="season-stat">
+                            <span>Impact par degré</span>
+                            <strong>+50 MW</strong>
+                        </div>
+                    </div>
+
+                    <div class="season-relation-card spring-card">
+                        <div class="season-header">
+                            <h3>🌸 Printemps</h3>
+                            <span class="season-period">Mar - Mai</span>
+                        </div>
+                        <div class="season-correlation">
+                            <div class="correlation-value">-0.65</div>
+                            <div class="correlation-text">Corrélation modérée</div>
+                        </div>
+                        <p>Au printemps, la relation s'atténue progressivement à mesure que 
+                        les besoins en chauffage diminuent.</p>
+                        <div class="season-stat">
+                            <span>Impact par degré</span>
+                            <strong>+25 MW</strong>
+                        </div>
+                    </div>
+
+                    <div class="season-relation-card summer-card">
+                        <div class="season-header">
+                            <h3>☀️ Été</h3>
+                            <span class="season-period">Juin - Août</span>
+                        </div>
+                        <div class="season-correlation">
+                            <div class="correlation-value">-0.35</div>
+                            <div class="correlation-text">Corrélation faible</div>
+                        </div>
+                        <p>En été, la relation s'inverse légèrement : aux températures extrêmes, 
+                        la climatisation peut augmenter la consommation.</p>
+                        <div class="season-stat">
+                            <span>Impact par degré</span>
+                            <strong>+8 MW</strong>
+                        </div>
+                    </div>
+
+                    <div class="season-relation-card autumn-card">
+                        <div class="season-header">
+                            <h3>🍂 Automne</h3>
+                            <span class="season-period">Sep - Nov</span>
+                        </div>
+                        <div class="season-correlation">
+                            <div class="correlation-value">-0.72</div>
+                            <div class="correlation-text">Corrélation forte</div>
+                        </div>
+                        <p>En automne, la relation se renforce avec le retour progressif 
+                        du chauffage dans les foyers.</p>
+                        <div class="season-stat">
+                            <span>Impact par degré</span>
+                            <strong>+35 MW</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Auto-generated Insights -->
+        <section class="insights-auto">
+            <div class="container">
+                <h2 class="section-title">💬 Analyse automatique</h2>
+                
+                <div class="auto-insights">
+                    <div class="auto-insight primary">
+                        <div class="insight-marker">🎯</div>
+                        <p>La température est <strong>le facteur déterminant</strong> de la consommation 
+                        électrique dans le Grand Est, expliquant environ <strong>67% des variations</strong> 
+                        observées tout au long de l'année 2014.</p>
+                    </div>
+                    
+                    <div class="auto-insight secondary">
+                        <div class="insight-marker">📊</div>
+                        <p>Les <strong>températures inférieures à 5°C</strong> déclenchent une forte 
+                        augmentation de la consommation, avec un seuil critique autour de 0°C où 
+                        l'impact devient maximal.</p>
+                    </div>
+                    
+                    <div class="auto-insight tertiary">
+                        <div class="insight-marker">⚡</div>
+                        <p>La <strong>sensibilité saisonnière</strong> varie considérablement : l'hiver 
+                        montre une réactivité 6 fois plus élevée que l'été face aux changements de température.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Projet</h4>
+                    <p>Génie Logiciel 2026<br>Université de Lorraine</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Équipe</h4>
+                    <p>HUANG Alex, ALI Abdullah<br>et équipe</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Sources</h4>
+                    <p>
+                        <a href="https://www.data.gouv.fr" target="_blank">data.gouv.fr</a><br>
+                        <a href="transparence.html">Voir les détails</a>
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ÉlectroMétéo Grand Est - Open Data</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

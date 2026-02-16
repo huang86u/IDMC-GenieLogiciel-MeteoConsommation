@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue d'ensemble - Grand Est</title>
+    <link rel="stylesheet" href="../static/base.css">
+    <link rel="stylesheet" href="../static/vue_ensemble.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Manrope:wght@400;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" fill="url(#logoGradient)" opacity="0.2" />
+                        <path d="M20 8L23 15L28 16L24 21L25 28L20 24L15 28L16 21L12 16L17 15L20 8Z"
+                            fill="url(#logoGradient)" />
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" style="stop-color:#3b82f6" />
+                                <stop offset="100%" style="stop-color:#06b6d4" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h1 class="logo-text">Électro<span class="logo-highlight">Météo</span> <span class="logo-region">Grand
+                        Est</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Accueil</a></li>
+                <li><a href="vue-ensemble.html" class="nav-link active">Vue d'ensemble</a></li>
+                <li><a href="explorer.html" class="nav-link">Explorer</a></li>
+                <li><a href="relation.html" class="nav-link">Relation Météo</a></li>
+                <li><a href="analyse-saisonniere.html" class="nav-link">Saisons</a></li>
+                <li><a href="scenarios.html" class="nav-link">Scénarios</a></li>
+                <li><a href="transparence.html" class="nav-link">Données</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Page Header -->
+        <header class="page-header">
+            <div class="container">
+                <h1 class="page-title">Vue d'ensemble du Grand Est</h1>
+                <p class="page-subtitle">Comparaison et analyse des 10 départements de la région</p>
+            </div>
+        </header>
+
+        <!-- Region Map Section -->
+        <section class="region-map-section">
+            <div class="container">
+                <h2 class="section-title">La région Grand Est</h2>
+
+                <div class="map-container">
+                    <!-- Left: Interactive Map (plus compacte) -->
+                    <div class="map-wrapper compact">
+                        <div class="interactive-map">
+                            <svg viewBox="0 0 500 400" class="region-svg">
+                                <!-- Ardennes (08) - Top left -->
+                                <path id="dept-08" class="department" data-dept="08" data-name="Ardennes"
+                                    d="M 80 60 L 150 50 L 170 100 L 140 120 L 80 110 Z" fill="#3b82f6" opacity="0.7" />
+                                <text x="115" y="85" class="dept-label">08</text>
+
+                                <!-- Marne (51) - Center left -->
+                                <path id="dept-51" class="department" data-dept="51" data-name="Marne"
+                                    d="M 80 120 L 150 130 L 170 160 L 150 200 L 80 190 Z" fill="#3b82f6"
+                                    opacity="0.7" />
+                                <text x="115" y="155" class="dept-label">51</text>
+
+                                <!-- Aube (10) - Bottom left -->
+                                <path id="dept-10" class="department" data-dept="10" data-name="Aube"
+                                    d="M 80 200 L 150 210 L 170 250 L 120 270 L 80 260 Z" fill="#3b82f6"
+                                    opacity="0.7" />
+                                <text x="115" y="235" class="dept-label">10</text>
+
+                                <!-- Haute-Marne (52) - Center bottom -->
+                                <path id="dept-52" class="department" data-dept="52" data-name="Haute-Marne"
+                                    d="M 180 210 L 250 220 L 270 260 L 240 290 L 180 280 Z" fill="#06b6d4"
+                                    opacity="0.7" />
+                                <text x="215" y="250" class="dept-label">52</text>
+
+                                <!-- Meuse (55) - Center -->
+                                <path id="dept-55" class="department" data-dept="55" data-name="Meuse"
+                                    d="M 180 120 L 250 110 L 270 160 L 250 200 L 180 190 Z" fill="#06b6d4"
+                                    opacity="0.7" />
+                                <text x="215" y="155" class="dept-label">55</text>
+
+                                <!-- Meurthe-et-Moselle (54) - Center top -->
+                                <path id="dept-54" class="department" data-dept="54" data-name="Meurthe-et-Moselle"
+                                    d="M 250 60 L 330 55 L 350 100 L 320 130 L 250 120 Z" fill="#10b981"
+                                    opacity="0.7" />
+                                <text x="290" y="95" class="dept-label">54</text>
+
+                                <!-- Moselle (57) - Top right -->
+                                <path id="dept-57" class="department" data-dept="57" data-name="Moselle"
+                                    d="M 350 40 L 450 30 L 470 80 L 440 110 L 350 100 Z" fill="#10b981" opacity="0.7" />
+                                <text x="400" y="75" class="dept-label">57</text>
+
+                                <!-- Bas-Rhin (67) - Right -->
+                                <path id="dept-67" class="department" data-dept="67" data-name="Bas-Rhin"
+                                    d="M 390 120 L 470 110 L 490 180 L 460 220 L 390 210 Z" fill="#f59e0b"
+                                    opacity="0.7" />
+                                <text x="440" y="165" class="dept-label">67</text>
+
+                                <!-- Haut-Rhin (68) - Bottom right -->
+                                <path id="dept-68" class="department" data-dept="68" data-name="Haut-Rhin"
+                                    d="M 390 230 L 470 220 L 490 280 L 450 320 L 390 310 Z" fill="#f59e0b"
+                                    opacity="0.7" />
+                                <text x="440" y="270" class="dept-label">68</text>
+
+                                <!-- Vosges (88) - Center right -->
+                                <path id="dept-88" class="department" data-dept="88" data-name="Vosges"
+                                    d="M 280 180 L 370 170 L 390 230 L 350 270 L 280 260 Z" fill="#ef4444"
+                                    opacity="0.7" />
+                                <text x="330" y="220" class="dept-label">88</text>
+                            </svg>
+                        </div>
+
+                        <div class="map-legend">
+                            <h4 class="legend-title">Sensibilité météo</h4>
+                            <div class="legend-scale">
+                                <div class="legend-item">
+                                    <span class="legend-color-box" style="background: #3b82f6"></span>
+                                    <span class="legend-label">Faible</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color-box" style="background: #06b6d4"></span>
+                                    <span class="legend-label">Moyenne-basse</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color-box" style="background: #10b981"></span>
+                                    <span class="legend-label">Moyenne</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color-box" style="background: #f59e0b"></span>
+                                    <span class="legend-label">Moyenne-haute</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color-box" style="background: #ef4444"></span>
+                                    <span class="legend-label">Élevée</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Department Info -->
+                    <div class="dept-info-wrapper">
+                        <div class="dept-info-card" id="dept-info">
+                            <div class="info-icon">🗺️</div>
+                            <h3 class="info-title">Département sélectionné</h3>
+                            <p class="info-description">Cliquez sur un département de la carte pour voir ses détails et
+                                statistiques</p>
+                            <div class="info-placeholder">
+                                <div class="placeholder-icon">👈</div>
+                                <p>Sélectionnez un département</p>
+                            </div>
+                            <div class="dept-details" id="dept-details" style="display: none;">
+                                <h4 id="selected-dept-name">Département</h4>
+                                <div class="dept-stats">
+                                    <div class="stat-row">
+                                        <span>Consommation moyenne :</span>
+                                        <strong id="dept-conso">-</strong>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span>Population :</span>
+                                        <strong id="dept-pop">-</strong>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span>Sensibilité météo :</span>
+                                        <strong id="dept-sensitivity">-</strong>
+                                    </div>
+                                </div>
+                                <a href="#" class="btn btn-small">Analyser ce département</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Departments Comparison -->
+        <section class="comparison-section">
+            <div class="container">
+                <h2 class="section-title">Comparaison inter-départements</h2>
+
+                <div class="comparison-controls">
+                    <div class="controls-header">
+                        <h3>Sélectionnez les départements à comparer</h3>
+                        <p>Cliquez pour activer/désactiver un département</p>
+                    </div>
+                    <div class="dept-selector-row">
+                        <label class="dept-checkbox-card">
+                            <input type="checkbox" value="08" checked>
+                            <div class="checkbox-content">
+                                <span class="dept-number">08</span>
+                                <span class="dept-name">Ardennes</span>
+                            </div>
+                        </label>
+                        <label class="dept-checkbox-card">
+                            <input type="checkbox" value="10" checked>
+                            <div class="checkbox-content">
+                                <span class="dept-number">10</span>
+                                <span class="dept-name">Aube</span>
+                            </div>
+                        </label>
+                        <label class="dept-checkbox-card">
+                            <input type="checkbox" value="51" checked>
+                            <div class="checkbox-content">
+                                <span class="dept-number">51</span>
+                                <span class="dept-name">Marne</span>
+                            </div>
+                        </label>
+                        <label class="dept-checkbox-card">
+                            <input type="checkbox" value="52">
+                            <div class="checkbox-content">
+                                <span class="dept-number">52</span>
+                                <span class="dept-name">Haute-Marne</span>
+                            </div>
+                        </label>
+                        <label class="dept-checkbox-card">
+                            <input type="checkbox" value="54" checked>
+                            <div class="checkbox-content">
+                                <span class="dept-number">54</span>
+                                <span class="dept-name">Meurthe-et-Moselle</span>
+                            </div>
+                        </label>
+                        <label class="dept-checkbox-card">
+                            <input type="checkbox" value="55">
+                            <div class="checkbox-content">
+                                <span class="dept-number">55</span>
+                                <span class="dept-name">Meuse</span>
+                            </div>
+                        </label>
+                        <label class="dept-checkbox-card">
+                            <input type="checkbox" value="57" checked>
+                            <div class="checkbox-content">
+                                <span class="dept-number">57</span>
+                                <span class="dept-name">Moselle</span>
+                            </div>
+                        </label>
+                        <label class="dept-checkbox-card">
+                            <input type="checkbox" value="67" checked>
+                            <div class="checkbox-content">
+                                <span class="dept-number">67</span>
+                                <span class="dept-name">Bas-Rhin</span>
+                            </div>
+                        </label>
+                        <label class="dept-checkbox-card">
+                            <input type="checkbox" value="68" checked>
+                            <div class="checkbox-content">
+                                <span class="dept-number">68</span>
+                                <span class="dept-name">Haut-Rhin</span>
+                            </div>
+                        </label>
+                        <label class="dept-checkbox-card">
+                            <input type="checkbox" value="88" checked>
+                            <div class="checkbox-content">
+                                <span class="dept-number">88</span>
+                                <span class="dept-name">Vosges</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Comparison Charts -->
+                <div class="charts-grid">
+                    <!-- Chart 1: Consommation moyenne -->
+                    <div class="chart-card">
+                        <div class="chart-header centered">
+                            <h3 class="chart-title">Consommation moyenne par département</h3>
+                            <span class="chart-badge">Année 2014</span>
+                        </div>
+                        <div class="horizontal-bar-chart">
+                            <div class="h-bar-item">
+                                <div class="h-bar-label">
+                                    <span class="dept-code">57</span>
+                                    <span class="dept-full-name">Moselle</span>
+                                </div>
+                                <div class="h-bar-container">
+                                    <div class="h-bar-fill"
+                                        style="width: 100%; background: linear-gradient(to right, #10b981, #34d399);">
+                                        <span class="h-bar-value">1 000 MW</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-bar-item">
+                                <div class="h-bar-label">
+                                    <span class="dept-code">54</span>
+                                    <span class="dept-full-name">Meurthe-et-Moselle</span>
+                                </div>
+                                <div class="h-bar-container">
+                                    <div class="h-bar-fill"
+                                        style="width: 95%; background: linear-gradient(to right, #10b981, #34d399);">
+                                        <span class="h-bar-value">950 MW</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-bar-item">
+                                <div class="h-bar-label">
+                                    <span class="dept-code">67</span>
+                                    <span class="dept-full-name">Bas-Rhin</span>
+                                </div>
+                                <div class="h-bar-container">
+                                    <div class="h-bar-fill"
+                                        style="width: 92%; background: linear-gradient(to right, #f59e0b, #fbbf24);">
+                                        <span class="h-bar-value">920 MW</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-bar-item">
+                                <div class="h-bar-label">
+                                    <span class="dept-code">51</span>
+                                    <span class="dept-full-name">Marne</span>
+                                </div>
+                                <div class="h-bar-container">
+                                    <div class="h-bar-fill"
+                                        style="width: 90%; background: linear-gradient(to right, #3b82f6, #60a5fa);">
+                                        <span class="h-bar-value">900 MW</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-bar-item">
+                                <div class="h-bar-label">
+                                    <span class="dept-code">08</span>
+                                    <span class="dept-full-name">Ardennes</span>
+                                </div>
+                                <div class="h-bar-container">
+                                    <div class="h-bar-fill"
+                                        style="width: 85%; background: linear-gradient(to right, #3b82f6, #60a5fa);">
+                                        <span class="h-bar-value">850 MW</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-bar-item">
+                                <div class="h-bar-label">
+                                    <span class="dept-code">68</span>
+                                    <span class="dept-full-name">Haut-Rhin</span>
+                                </div>
+                                <div class="h-bar-container">
+                                    <div class="h-bar-fill"
+                                        style="width: 80%; background: linear-gradient(to right, #f59e0b, #fbbf24);">
+                                        <span class="h-bar-value">800 MW</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-bar-item">
+                                <div class="h-bar-label">
+                                    <span class="dept-code">10</span>
+                                    <span class="dept-full-name">Aube</span>
+                                </div>
+                                <div class="h-bar-container">
+                                    <div class="h-bar-fill"
+                                        style="width: 75%; background: linear-gradient(to right, #3b82f6, #60a5fa);">
+                                        <span class="h-bar-value">750 MW</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-bar-item">
+                                <div class="h-bar-label">
+                                    <span class="dept-code">88</span>
+                                    <span class="dept-full-name">Vosges</span>
+                                </div>
+                                <div class="h-bar-container">
+                                    <div class="h-bar-fill"
+                                        style="width: 70%; background: linear-gradient(to right, #ef4444, #f87171);">
+                                        <span class="h-bar-value">700 MW</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-bar-item">
+                                <div class="h-bar-label">
+                                    <span class="dept-code">52</span>
+                                    <span class="dept-full-name">Haute-Marne</span>
+                                </div>
+                                <div class="h-bar-container">
+                                    <div class="h-bar-fill"
+                                        style="width: 65%; background: linear-gradient(to right, #06b6d4, #22d3ee);">
+                                        <span class="h-bar-value">650 MW</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-bar-item">
+                                <div class="h-bar-label">
+                                    <span class="dept-code">55</span>
+                                    <span class="dept-full-name">Meuse</span>
+                                </div>
+                                <div class="h-bar-container">
+                                    <div class="h-bar-fill"
+                                        style="width: 60%; background: linear-gradient(to right, #06b6d4, #22d3ee);">
+                                        <span class="h-bar-value">600 MW</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart 2: Sensibilité -->
+                    <div class="chart-card">
+                        <div class="chart-header centered">
+                            <h3 class="chart-title">Sensibilité à la température</h3>
+                            <span class="chart-badge">Impact par °C</span>
+                        </div>
+                        <div class="sensitivity-grid">
+                            <div class="sensitivity-item high">
+                                <div class="sensitivity-icon">🏔️</div>
+                                <div class="sensitivity-info">
+                                    <h4 class="sensitivity-dept">88 - Vosges</h4>
+                                    <p class="sensitivity-desc">Zone montagneuse</p>
+                                </div>
+                                <div class="sensitivity-value">+3.2%</div>
+                            </div>
+                            <div class="sensitivity-item high">
+                                <div class="sensitivity-icon">🏔️</div>
+                                <div class="sensitivity-info">
+                                    <h4 class="sensitivity-dept">68 - Haut-Rhin</h4>
+                                    <p class="sensitivity-desc">Altitude élevée</p>
+                                </div>
+                                <div class="sensitivity-value">+2.9%</div>
+                            </div>
+                            <div class="sensitivity-item medium">
+                                <div class="sensitivity-icon">🌾</div>
+                                <div class="sensitivity-info">
+                                    <h4 class="sensitivity-dept">67 - Bas-Rhin</h4>
+                                    <p class="sensitivity-desc">Zone urbaine/rurale</p>
+                                </div>
+                                <div class="sensitivity-value">+2.4%</div>
+                            </div>
+                            <div class="sensitivity-item medium">
+                                <div class="sensitivity-icon">🌾</div>
+                                <div class="sensitivity-info">
+                                    <h4 class="sensitivity-dept">57 - Moselle</h4>
+                                    <p class="sensitivity-desc">Zone industrielle</p>
+                                </div>
+                                <div class="sensitivity-value">+2.3%</div>
+                            </div>
+                            <div class="sensitivity-item low">
+                                <div class="sensitivity-icon">🏘️</div>
+                                <div class="sensitivity-info">
+                                    <h4 class="sensitivity-dept">51 - Marne</h4>
+                                    <p class="sensitivity-desc">Plaine agricole</p>
+                                </div>
+                                <div class="sensitivity-value">+1.8%</div>
+                            </div>
+                            <div class="sensitivity-item low">
+                                <div class="sensitivity-icon">🏘️</div>
+                                <div class="sensitivity-info">
+                                    <h4 class="sensitivity-dept">10 - Aube</h4>
+                                    <p class="sensitivity-desc">Zone de plaine</p>
+                                </div>
+                                <div class="sensitivity-value">+1.7%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Insights -->
+        <section class="insights-section">
+            <div class="container">
+                <h2 class="section-title">Enseignements clés</h2>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-header">
+                            <div class="insight-badge">
+                                <span class="insight-number">1</span>
+                            </div>
+                            <div class="insight-tags">
+                                <span class="insight-tag">Géographie</span>
+                                <span class="insight-tag">Climat</span>
+                            </div>
+                        </div>
+                        <h3 class="insight-title">Les départements montagneux sont plus sensibles</h3>
+                        <p class="insight-text">Les Vosges et le Haut-Rhin, avec leur relief accidenté et leur climat
+                            plus rigoureux, montrent une corrélation température-consommation plus marquée que les
+                            départements de plaine.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-header">
+                            <div class="insight-badge">
+                                <span class="insight-number">2</span>
+                            </div>
+                            <div class="insight-tags">
+                                <span class="insight-tag">Urbanisation</span>
+                                <span class="insight-tag">Industrie</span>
+                            </div>
+                        </div>
+                        <h3 class="insight-title">La Moselle et le Bas-Rhin : gros consommateurs</h3>
+                        <p class="insight-text">Ces départements densément peuplés et industrialisés affichent les
+                            consommations moyennes les plus élevées de la région, avec des pics importants en hiver.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-header">
+                            <div class="insight-badge">
+                                <span class="insight-number">3</span>
+                            </div>
+                            <div class="insight-tags">
+                                <span class="insight-tag">Saisonnalité</span>
+                                <span class="insight-tag">Chauffage</span>
+                            </div>
+                        </div>
+                        <h3 class="insight-title">Variations saisonnières marquées partout</h3>
+                        <p class="insight-text">Tous les départements sans exception montrent un écart significatif
+                            entre consommation hivernale et estivale, confirmant l'impact majeur du chauffage
+                            électrique.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-box centered">
+                    <h2 class="cta-title">Analysez un département spécifique</h2>
+                    <p class="cta-description">Plongez dans les données détaillées de chaque territoire</p>
+                    <a href="explorer.html" class="btn btn-primary">
+                        <span class="btn-text">Explorer par département</span>
+                        <span class="btn-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (identique à la page d'accueil) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p class="footer-source">
+                        <span class="source-icon">📂</span>
+                        Données ouvertes issues de <a href="https://www.data.gouv.fr" target="_blank"
+                            class="source-link">data.gouv.fr</a>
+                    </p>
+                </div>
+                <div class="footer-copyright">
+                    <p>© 2026 ÉlectroMétéo Grand Est • Open Data • Génie Logiciel • Université de Lorraine</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
