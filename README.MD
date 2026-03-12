@@ -5,6 +5,7 @@ Le projet vise à développer une application logicielle répondant à la questi
 ## Prérequis
 - Java 21 
 - Maven 3.9.12
+- SpringBoot 3.4.3
 - PostgreSQL
 
 ## Installation
@@ -12,4 +13,5 @@ Le projet vise à développer une application logicielle répondant à la questi
    ```bash
     git clone https://github.com/huang86u/IDMC-GenieLogiciel-MeteoConsommation.git
     cd IDMC-GenieLogiciel-MeteoConsommation
+   .\mvnw spring-boot:run
     ```
