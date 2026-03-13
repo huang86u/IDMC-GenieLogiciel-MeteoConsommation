@@ -3,7 +3,7 @@ Ce dépôt contient le code source et la documentation pour le projet de Génie 
 Le projet vise à développer une application logicielle répondant à la question suivante : Est ce que les variations métérologiques ont un impact sur la consommation électrique ?
 
 ## Prérequis
-- Java 21 
+- Java 21.0.10 (JDK)
 - Maven 3.9.12
 - SpringBoot 3.4.3
 - PostgreSQL
