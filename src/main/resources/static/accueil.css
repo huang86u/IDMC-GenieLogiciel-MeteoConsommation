@@ -32,7 +32,8 @@
     --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
     --transition-fast: 0.2s ease;
     --transition-normal: 0.3s ease;
-    --font-mono: 'Courier New', monospace;
+    --font-display: 'Inter', sans-serif;
+    --font-mono: 'Manrope', sans-serif;
 }
 
 /* --- Hero Section --- */
