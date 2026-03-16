@@ -1,9 +1,11 @@
-package com.example.genielogicielmeteoconsommation;
+package com.example.genielogicielmeteoconsommation.service;
+
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CalculMeteo {
-
     /**
      * Calcule la moyenne pour synchroniser les données de 2014[cite: 34, 61].
      * Utile pour la température (T), l'humidité (U) ou le vent (FF)[cite: 42, 43, 45].
