@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class ImportMeteoServiceTest {
+class ImportMeteoServiceTest {
 
     @Mock
     private DonneesMeteoRepository meteoRepository;
@@ -26,41 +26,35 @@ public class ImportMeteoServiceTest {
     private ImportMeteoService importMeteoService;
 
     @Test
-    public void testImporterFichierMeteo() throws Exception {
-        // Construction d'une ligne de 80 colonnes vides pour éviter l'IndexOutOfBounds
-        String[] colonnes = new String[80];
-        Arrays.fill(colonnes, "");
+    void testImporterFichierMeteo() {
+        String[] columns = new String[80];
+        Arrays.fill(columns, "");
 
-        // Remplissage avec des données valides pour l'année 2014 (Indices : 0, 5, 6, 10, 42, 76)
-        colonnes[0] = "08001001";     // NUM_POSTE
-        colonnes[5] = "2014010112";   // AAAAMMJJHH (12h UTC = 13h Paris en hiver)
-        colonnes[6] = "1.5";          // RR1
-        colonnes[10] = "25.0";        // FF
-        colonnes[42] = "10.2";        // T
-        colonnes[76] = "80";          // U
+        columns[0] = "08001001";
+        columns[5] = "2014010112";
+        columns[6] = "1.5";
+        columns[10] = "25.0";
+        columns[42] = "10.2";
+        columns[76] = "80";
 
-        String enTete = "NUM_POSTE;NOM_USUEL;LAT;LON;ALTI;AAAAMMJJHH;RR1;QRR1;DRR1;QDRR1;FF;QFF;... (et autres colonnes)\n";
-        String ligneValide = String.join(";", colonnes) + "\n";
+        String header = "NUM_POSTE;NOM_USUEL;LAT;LON;ALTI;AAAAMMJJHH;RR1;QRR1;DRR1;QDRR1;FF;QFF\n";
+        String validLine = String.join(";", columns) + "\n";
 
-        // Ligne ignorée car pas de l'année 2014
-        colonnes[5] = "2015010112";
-        String ligneInvalide = String.join(";", colonnes) + "\n";
+        columns[5] = "2015010112";
+        String invalidLine = String.join(";", columns) + "\n";
 
-        String csvContent = enTete + ligneValide + ligneInvalide;
+        String csvContent = header + validLine + invalidLine;
         MockMultipartFile mockFile = new MockMultipartFile("files", "meteo.csv", "text/csv", csvContent.getBytes());
 
-        // Exécution
         importMeteoService.importerFichierMeteo(mockFile);
 
-        // Vérification
         ArgumentCaptor<List<DonneesMeteo>> captor = ArgumentCaptor.forClass(List.class);
         verify(meteoRepository).saveAll(captor.capture());
 
         List<DonneesMeteo> savedList = captor.getValue();
-
         assertEquals(1, savedList.size());
         assertEquals("08", savedList.get(0).getDepartement());
-        assertEquals("13:00", savedList.get(0).getHeure().toString()); // Test de la conversion UTC -> Europe/Paris
+        assertEquals("13:00", savedList.get(0).getHeure().toString());
         assertEquals(10.2, savedList.get(0).getTemperature());
     }
 }

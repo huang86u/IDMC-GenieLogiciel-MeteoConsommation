@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meteo &amp; Consommation - Vue d'ensemble</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="overview">
+<div class="page-shell">
+    <header class="hero hero-page">
+        <div class="hero-grid">
+            <div>
+                <p class="eyebrow">Genie Logiciel | Grand Est 2014</p>
+                <span class="page-tag">Vue d'ensemble</span>
+                <h1>Lire rapidement l'etat du territoire</h1>
+                <p class="hero-copy">
+                    Cette page reprend l'esprit de la maquette: une vue large du Grand Est, une carte simplifiee,
+                    des indicateurs cles et la couverture effective des donnees importees.
+                </p>
+            </div>
+            <aside class="hero-note">
+                <strong>Representation</strong>
+                <p>La carte ci-dessous sert de repere visuel. Les chiffres et graphiques affiches viennent des APIs locales du projet.</p>
+            </aside>
+        </div>
+        <div id="heroHighlights" class="hero-highlights"></div>
+        <nav class="section-nav">
+            <a href="/index.html">Accueil</a>
+            <a href="/vue-ensemble.html" class="is-active">Vue d'ensemble</a>
+            <a href="/explorer.html">Explorer</a>
+            <a href="/relation.html">Relation</a>
+            <a href="/analyse-saisonniere.html">Saisons</a>
+            <a href="/scenarios.html">Scenarios</a>
+            <a href="/transparence.html">Transparence</a>
+        </nav>
+    </header>
+
+    <main class="workspace">
+        <aside class="control-panel">
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Filtres</p>
+                    <h2>Perimetre d'analyse</h2>
+                </div>
+                <label class="field">
+                    <span>Date de debut</span>
+                    <input type="date" id="startDate" value="2014-01-01">
+                </label>
+                <label class="field">
+                    <span>Date de fin</span>
+                    <input type="date" id="endDate" value="2014-12-31">
+                </label>
+                <div class="field">
+                    <div class="field-row">
+                        <span>Departements</span>
+                        <button type="button" class="link-button" id="toggleDepartments">Tout deselectionner</button>
+                    </div>
+                    <div id="departmentChecklist" class="department-checklist"></div>
+                </div>
+                <div class="button-row">
+                    <button id="applyFilters" class="primary-button" type="button">Actualiser</button>
+                    <button id="resetFilters" class="secondary-button" type="button">Reinitialiser</button>
+                </div>
+            </section>
+
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Donnees</p>
+                    <h2>Chargees par le backend</h2>
+                </div>
+                <p class="panel-note">Le chargement des fichiers se fait cote serveur, pas depuis le navigateur.</p>
+                <p class="panel-note">Cette vue lit uniquement les donnees deja integrees dans le backend.</p>
+            </section>
+
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Couverture</p>
+                    <h2>Etat des donnees</h2>
+                </div>
+                <div id="coveragePanel" class="mini-stats"></div>
+            </section>
+        </aside>
+
+        <section class="content-grid">
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Carte</p>
+                    <h2>Grand Est en un coup d'oeil</h2>
+                </div>
+                <div class="map-layout">
+                    <div class="map-card">
+                        <div class="map-card-head">
+                            <div>
+                                <strong>Carte interactive du Grand Est</strong>
+                                <p class="panel-note">Clique sur un departement pour filtrer instantanement les indicateurs de cette page.</p>
+                            </div>
+                            <button id="resetMapFocus" class="secondary-button" type="button">Vue regionale</button>
+                        </div>
+                        <div class="map-surface">
+                            <svg id="grandEstMap" viewBox="0 0 560 440" class="dept-map grand-est-map" aria-label="Carte interactive du Grand Est"></svg>
+                        </div>
+                        <p id="mapSelectionNote" class="panel-note">
+                            Clique sur un departement pour appliquer directement le filtre sur cette vue.
+                        </p>
+                    </div>
+
+                    <div class="section-stack">
+                        <div id="departmentSpotlight" class="map-detail-card" aria-live="polite"></div>
+                        <div id="territoryOverview" class="territory-grid"></div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Indicateurs</p>
+                    <h2>Mesures globales a surveiller</h2>
+                </div>
+                <div id="summaryCards" class="metric-grid"></div>
+            </article>
+
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Evolution</p>
+                    <h2>Tendance quotidienne agregee</h2>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Consommation et meteo sur la periode filtree</h3>
+                        <p>Les courbes sont normalisees pour pouvoir comparer visuellement leurs variations.</p>
+                    </div>
+                    <div id="trendChart" class="chart-host"></div>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p>Vue d'ensemble du Grand Est | Dashboard branche sur les APIs locales du projet</p>
+    </footer>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<script src="/app.js"></script>
+</body>
+</html>
