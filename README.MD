@@ -21,110 +21,62 @@ Application Spring Boot permettant de charger, nettoyer, croiser, analyser et vi
 - Spring Web
 - Spring Data JPA
 - H2 pour le profil local par defaut
-- PostgreSQL disponible via un profil dedie
-- Maven Wrapper
+- PostgreSQL disponible via un profil dédier
+- Jeu de données téléchargeable ci-dessous : <a href="https://drive.google.com/file/d/1Ikv5DKR1QinmYtLXZMMJTuVj29TkTeUz/view?usp=sharing" download>DatasetGenieLogiciel.zip</a>
+- *Note : Maven n'a pas besoin d'être installé globalement, le projet intègre directement le wrapper Maven (mvnw / mvnw.cmd).*
 
-## Lancement rapide en local
-
-Le profil `local` est actif par defaut et utilise une base H2 fichier stockee dans `data/`.
-
+## Lancement du projet
+Télecharger le projet et le dataset, puis suivre les instructions ci-dessous pour lancer l'application.
 ```bash
-.\mvnw.cmd spring-boot:run
+git clone https://github.com/huang86u/IDMC-GenieLogiciel-MeteoConsommation.git
 ```
-
-Si la base est vide, le backend peut initialiser automatiquement les donnees a partir du zip configure dans `application-local.properties`.
-La variable d'environnement supportee est :
-
-- `DATASET_ZIP_PATH`
-
-Ensuite ouvrir :
-
-- application web : `http://localhost:8080`
-- console H2 : `http://localhost:8080/h2-console`
-
-Configuration H2 par defaut :
-
-- JDBC URL : `jdbc:h2:file:./data/meteo-consommation`
-- user : `sa`
-- password : vide
-
-## Installation et lancement sur un autre PC
-
-Pour executer le projet sur une autre machine, il faut simplement :
-
-1. recuperer le projet
-2. installer Java 21
-3. recuperer le fichier `DatasetGenieLogiciel.zip`
-4. indiquer au backend ou se trouve ce zip
-5. lancer l'application avec le Maven Wrapper fourni
-
-Le point le plus important est le dataset. Le backend charge automatiquement les donnees au premier demarrage si la base locale est vide, mais il faut que le chemin du zip soit accessible via la variable d'environnement `DATASET_ZIP_PATH`.
-
-### Windows
-
-Dans PowerShell, a la racine du projet :
-
-```powershell
+### Option A: Profil Local (H2 + Import ZIP)
+1. Placer le fichier `DatasetGenieLogiciel.zip` dans un emplacement accessible.
+Windows (PowerShell) :
+````bash
 $env:DATASET_ZIP_PATH="C:\chemin\vers\DatasetGenieLogiciel.zip"
 .\mvnw.cmd spring-boot:run
-```
-
-### macOS / Linux
-
-Dans un terminal, a la racine du projet :
-
+````
+macOS / Linux (Terminal) :
 ```bash
 export DATASET_ZIP_PATH="/chemin/vers/DatasetGenieLogiciel.zip"
 ./mvnw spring-boot:run
+````
+OPTION B: Profil PostgreSQL
+1. Configurer une base PostgreSQL et créer une base de données
+2. Exécuter ça en remplace les valeurs de ``POSTGRES_URL``, ``POSTGRES_USERNAME`` et ``POSTGRES_PASSWORD`` par les valeurs de votre base PostgreSQL :
+```bash
+$env:SPRING_PROFILES_ACTIVE="postgres"
+$env:POSTGRES_URL="jdbc:postgresql://localhost:5432/nom_db"
+$env:POSTGRES_USERNAME="votre_user"
+$env:POSTGRES_PASSWORD="votre_password"
+.\\mvnw.cmd spring-boot:run
 ```
+3. Pour ajouter les données à la base PostgreSQL, ouvrez ses 2 fichiers : ```src/main/java/com/example/genielogicielmeteoconsommation/testimport.html``` et ```src/main/java/com/example/genielogicielmeteoconsommation/import-meteo.html```
 
-Ensuite ouvrir :
+- ```testimport.html``` : Mettez le fichier eco2mix-regional
+- ```import-meteo.html``` : Mettez les 10 fichiers départementaux de données météo du Grand Est.
 
-- application web : `http://localhost:8080`
-- console H2 : `http://localhost:8080/h2-console`
+Celà va prendre un peu de temps selon la puissance de votre machine.
+## Accès à l'application
+- Application web : `http://localhost:8080`
+- Console H2 (profil local) : `http://localhost:8080/h2-console
+
+## Tests et développement
+Pour lancer la suite de tests unitaires :
+```bash
+.\mvnw.cmd test
+```
+Compile et package l'application :
+```bash
+.\mvnw.cmd clean package
+```
 
 Notes utiles :
 
-- Maven n'a pas besoin d'etre installe globalement, le projet utilise le wrapper `mvnw`
 - le premier demarrage peut etre plus long, car le backend initialise la base locale avec le dataset
 - les demarrages suivants sont plus rapides, car la base H2 locale est deja remplie
 - si `DATASET_ZIP_PATH` n'est pas renseigne, l'application utilisera la valeur par defaut definie dans `src/main/resources/application-local.properties`, qui doit donc etre adaptee si elle ne correspond pas a la machine
-
-## Utilisation avec PostgreSQL
-
-Le profil `postgres` est disponible dans `src/main/resources/application-postgres.properties`.
-
-Variables supportees :
-
-- `POSTGRES_URL`
-- `POSTGRES_USERNAME`
-- `POSTGRES_PASSWORD`
-
-Exemple :
-
-```bash
-$env:POSTGRES_URL="jdbc:postgresql://localhost:5432/meteo_consommation"
-$env:POSTGRES_USERNAME="postgres"
-$env:POSTGRES_PASSWORD="postgres"
-.\mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=postgres
-```
-
-## Parcours d'utilisation
-
-1. Lancer l'application.
-2. Laisser le backend charger les donnees si la base est vide.
-3. Ouvrir `http://localhost:8080`.
-4. Utiliser les filtres de date et de departements.
-5. Explorer les pages :
-   - synthese generale
-   - vue Grand Est
-   - profils par departement
-   - relation meteo / consommation
-   - analyse saisonniere
-   - scenario d'estimation
-   - transparence des donnees
-
-## Endpoints utiles
 
 ### Imports backend
 
@@ -137,30 +89,9 @@ Ces endpoints existent encore, mais l'interface utilisateur n'en depend plus.
 
 - `GET /api/dashboard/departments`
 - `GET /api/dashboard/overview`
-- `POST /api/dashboard/estimate`
-
-## Tests
-
-Compiler :
-
-```bash
-.\mvnw.cmd compile
-```
-
-Lancer les tests :
-
-```bash
-.\mvnw.cmd test
-```
 
 ## Structure principale
-
-- `src/main/java/.../controller`
-- `src/main/java/.../service`
-- `src/main/java/.../repository`
-- `src/main/java/.../dto`
-- `src/main/java/.../support`
-- `src/main/resources/static`
+- `POST /api/dashboard/estimate`
 
 ## Notes de conception
 

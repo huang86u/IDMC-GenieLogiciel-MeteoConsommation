@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Importation Électricité</title>
+</head>
+<body>
+<h2>Importer les données de consommation (2014)</h2>
+<form action="http://localhost:8080/api/donnees/importer-electricite" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".csv" required>
+    <button type="submit">Lancer l'importation</button>
+</form>
+</body>
+</html>
