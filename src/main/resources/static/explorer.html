@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meteo &amp; Consommation - Explorer</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="explorer">
+<div class="page-shell">
+    <header class="hero hero-page">
+        <div class="hero-grid">
+            <div>
+                <p class="eyebrow">Genie Logiciel | Grand Est 2014</p>
+                <span class="page-tag">Explorer</span>
+                <h1>Explorer les profils meteo departement par departement</h1>
+                <p class="hero-copy">
+                    Cette page reprend l'idee de la maquette "explorer" mais avec des donnees reelles:
+                    moyennes, amplitudes thermiques, humidite, vent et courbes mensuelles.
+                </p>
+            </div>
+            <aside class="hero-note">
+                <strong>Perimetre</strong>
+                <p>Les cartes ci-dessous decrivent les profils meteo locaux. La consommation exploitee par le modele reste regionale.</p>
+            </aside>
+        </div>
+        <div id="heroHighlights" class="hero-highlights"></div>
+        <nav class="section-nav">
+            <a href="/index.html">Accueil</a>
+            <a href="/vue-ensemble.html">Vue d'ensemble</a>
+            <a href="/explorer.html" class="is-active">Explorer</a>
+            <a href="/relation.html">Relation</a>
+            <a href="/analyse-saisonniere.html">Saisons</a>
+            <a href="/scenarios.html">Scenarios</a>
+            <a href="/transparence.html">Transparence</a>
+        </nav>
+    </header>
+
+    <main class="workspace">
+        <aside class="control-panel">
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Filtres</p>
+                    <h2>Perimetre d'analyse</h2>
+                </div>
+                <label class="field">
+                    <span>Date de debut</span>
+                    <input type="date" id="startDate" value="2014-01-01">
+                </label>
+                <label class="field">
+                    <span>Date de fin</span>
+                    <input type="date" id="endDate" value="2014-12-31">
+                </label>
+                <div class="field">
+                    <div class="field-row">
+                        <span>Departements</span>
+                        <button type="button" class="link-button" id="toggleDepartments">Tout deselectionner</button>
+                    </div>
+                    <div id="departmentChecklist" class="department-checklist"></div>
+                </div>
+                <div class="button-row">
+                    <button id="applyFilters" class="primary-button" type="button">Actualiser</button>
+                    <button id="resetFilters" class="secondary-button" type="button">Reinitialiser</button>
+                </div>
+            </section>
+
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Donnees</p>
+                    <h2>Chargees par le backend</h2>
+                </div>
+                <p class="panel-note">Les jeux de donnees sont prepares et charges cote backend.</p>
+                <p class="panel-note">Le frontend sert ici uniquement a filtrer et consulter les analyses.</p>
+            </section>
+
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Couverture</p>
+                    <h2>Etat des donnees</h2>
+                </div>
+                <div id="coveragePanel" class="mini-stats"></div>
+            </section>
+        </aside>
+
+        <section class="content-grid">
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Variables</p>
+                    <h2>Informations disponibles par departement</h2>
+                </div>
+                <div class="note-grid">
+                    <div class="focus-card">
+                        <strong>Temperature moyenne</strong>
+                        <p>Valeur moyenne observee sur la plage de dates filtree.</p>
+                    </div>
+                    <div class="focus-card">
+                        <strong>Minimum et maximum</strong>
+                        <p>Les extremes thermiques sont calcules a partir des observations meteo disponibles.</p>
+                    </div>
+                    <div class="focus-card">
+                        <strong>Stations</strong>
+                        <p>Le nombre de stations indique la couverture meteo disponible pour le departement.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Profils</p>
+                    <h2>Cartes meteo par departement</h2>
+                </div>
+                <div id="departmentProfiles" class="profile-grid"></div>
+            </article>
+
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Courbes</p>
+                    <h2>Temperature moyenne mensuelle</h2>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Evolution mensuelle par departement</h3>
+                        <p>Les courbes permettent de comparer la saisonnalite des departements selectionnes.</p>
+                    </div>
+                    <div id="departmentChart" class="chart-host"></div>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p>Explorer les departements | Profils meteo locaux pour le perimetre selectionne</p>
+    </footer>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meteo &amp; Consommation - Relation</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="relation">
+<div class="page-shell">
+    <header class="hero hero-page">
+        <div class="hero-grid">
+            <div>
+                <p class="eyebrow">Genie Logiciel | Grand Est 2014</p>
+                <span class="page-tag">Relation meteo / consommation</span>
+                <h1>Observer les liens entre temperature et demande electrique</h1>
+                <p class="hero-copy">
+                    Cette page regroupe le nuage de points, les tranches thermiques
+                    et les indicateurs de correlation calcules sur les donnees filtrees.
+                </p>
+            </div>
+            <aside class="hero-note">
+                <strong>Indicateur</strong>
+                <p>Une correlation negative signifie qu'en moyenne la consommation augmente quand la temperature diminue.</p>
+            </aside>
+        </div>
+        <div id="heroHighlights" class="hero-highlights"></div>
+        <nav class="section-nav">
+            <a href="/index.html">Accueil</a>
+            <a href="/vue-ensemble.html">Vue d'ensemble</a>
+            <a href="/explorer.html">Explorer</a>
+            <a href="/relation.html" class="is-active">Relation</a>
+            <a href="/analyse-saisonniere.html">Saisons</a>
+            <a href="/scenarios.html">Scenarios</a>
+            <a href="/transparence.html">Transparence</a>
+        </nav>
+    </header>
+
+    <main class="workspace">
+        <aside class="control-panel">
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Filtres</p>
+                    <h2>Perimetre d'analyse</h2>
+                </div>
+                <label class="field">
+                    <span>Date de debut</span>
+                    <input type="date" id="startDate" value="2014-01-01">
+                </label>
+                <label class="field">
+                    <span>Date de fin</span>
+                    <input type="date" id="endDate" value="2014-12-31">
+                </label>
+                <div class="field">
+                    <div class="field-row">
+                        <span>Departements</span>
+                        <button type="button" class="link-button" id="toggleDepartments">Tout deselectionner</button>
+                    </div>
+                    <div id="departmentChecklist" class="department-checklist"></div>
+                </div>
+                <div class="button-row">
+                    <button id="applyFilters" class="primary-button" type="button">Actualiser</button>
+                    <button id="resetFilters" class="secondary-button" type="button">Reinitialiser</button>
+                </div>
+            </section>
+
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Donnees</p>
+                    <h2>Chargees par le backend</h2>
+                </div>
+                <p class="panel-note">Le backend alimente deja cette page avec les donnees integrees au projet.</p>
+                <p class="panel-note">Aucun upload manuel n'est demande a l'utilisateur.</p>
+            </section>
+
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Couverture</p>
+                    <h2>Etat des donnees</h2>
+                </div>
+                <div id="coveragePanel" class="mini-stats"></div>
+            </section>
+        </aside>
+
+        <section class="content-grid">
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Indicateurs</p>
+                    <h2>Mesures cles de la relation</h2>
+                </div>
+                <div id="summaryCards" class="metric-grid"></div>
+            </article>
+
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Visualisations</p>
+                    <h2>Comportement de la consommation selon la temperature</h2>
+                </div>
+                <div class="split-layout">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Nuage de points</h3>
+                            <p>Chaque point correspond a une observation horaire commune entre meteo et consommation.</p>
+                        </div>
+                        <div id="scatterChart" class="chart-host"></div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Tranches de temperature</h3>
+                            <p>La courbe est remplacee ici par des barres moyennes pour mieux voir les zones sensibles.</p>
+                        </div>
+                        <div id="bucketChart" class="chart-host"></div>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p>Relation meteo / consommation | Visualisations destinees a l'analyse metier</p>
+    </footer>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<script src="/app.js"></script>
+</body>
+</html>

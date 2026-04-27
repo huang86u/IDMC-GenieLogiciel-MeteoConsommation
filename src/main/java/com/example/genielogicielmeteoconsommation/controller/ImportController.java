@@ -1,42 +1,71 @@
 package com.example.genielogicielmeteoconsommation.controller;
 
+import com.example.genielogicielmeteoconsommation.dto.ImportSummary;
+import com.example.genielogicielmeteoconsommation.service.DashboardService;
 import com.example.genielogicielmeteoconsommation.service.ImportDonneesService;
 import com.example.genielogicielmeteoconsommation.service.ImportMeteoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/donnees")
 public class ImportController {
 
-    @Autowired
-    private ImportDonneesService importService;
+    private final ImportDonneesService importService;
+    private final ImportMeteoService importMeteoService;
+    private final DashboardService dashboardService;
+
+    public ImportController(
+            ImportDonneesService importService,
+            ImportMeteoService importMeteoService,
+            DashboardService dashboardService
+    ) {
+        this.importService = importService;
+        this.importMeteoService = importMeteoService;
+        this.dashboardService = dashboardService;
+    }
 
     @PostMapping("/importer-electricite")
     public ResponseEntity<String> importerElectricite(@RequestParam("file") MultipartFile file) {
         try {
-            importService.importerFichierRte(file);
-            return ResponseEntity.ok("Fichier RTE importé et filtré avec succès !");
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body("Erreur lors de l'import : " + e.getMessage());
+            ImportSummary summary = importService.importerFichierRte(file);
+            dashboardService.clearOverviewCache();
+            String message = "Import electricite termine : %d lignes valides ajoutees, %d lignes ignorees."
+                    .formatted(summary.insertedRows(), summary.skippedRows());
+            return ResponseEntity.ok(message);
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        } catch (Exception exception) {
+            return ResponseEntity.internalServerError()
+                    .body("Erreur lors de l'import electricite : " + exception.getMessage());
         }
     }
-
-    @Autowired
-    private ImportMeteoService importMeteoService;
 
     @PostMapping("/importer-meteo")
     public ResponseEntity<String> importerMeteoMultiple(@RequestParam("files") MultipartFile[] files) {
         try {
+            int insertedRows = 0;
+            int skippedRows = 0;
+
             for (MultipartFile file : files) {
-                // On appelle le service pour chaque fichier reçu
-                importMeteoService.importerFichierMeteo(file);
+                ImportSummary summary = importMeteoService.importerFichierMeteo(file);
+                insertedRows += summary.insertedRows();
+                skippedRows += summary.skippedRows();
             }
-            return ResponseEntity.ok(files.length + " fichier(s) Météo importé(s) avec succès !");
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body("Erreur lors de l'import météo : " + e.getMessage());
+
+            dashboardService.clearOverviewCache();
+            String message = "Import meteo termine : %d fichiers traites, %d lignes valides ajoutees, %d lignes ignorees."
+                    .formatted(files.length, insertedRows, skippedRows);
+            return ResponseEntity.ok(message);
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        } catch (Exception exception) {
+            return ResponseEntity.internalServerError()
+                    .body("Erreur lors de l'import meteo : " + exception.getMessage());
         }
     }
 }

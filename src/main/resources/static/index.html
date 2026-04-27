@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meteo &amp; Consommation - Accueil</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="home">
+<div class="page-shell">
+    <header class="hero hero-page">
+        <div class="hero-grid">
+            <div>
+                <p class="eyebrow">Genie Logiciel | Grand Est 2014</p>
+                <span class="page-tag">Accueil</span>
+                <h1>Meteo &amp; consommation electrique dans le Grand Est</h1>
+                <p class="hero-copy">
+                    Une vue synthetique du projet: verifier la couverture des donnees chargees par le backend,
+                    analyser la relation meteo/consommation et produire une estimation simple a partir du modele.
+                </p>
+            </div>
+            <aside class="hero-note">
+                <strong>Perimetre</strong>
+                <p>
+                    La consommation reste agregee a l'echelle regionale, tandis que la meteo est observee
+                    sur les departements du Grand Est retenus dans le projet.
+                </p>
+            </aside>
+        </div>
+        <div id="heroHighlights" class="hero-highlights"></div>
+        <nav class="section-nav">
+            <a href="/index.html" class="is-active">Accueil</a>
+            <a href="/vue-ensemble.html">Vue d'ensemble</a>
+            <a href="/explorer.html">Explorer</a>
+            <a href="/relation.html">Relation</a>
+            <a href="/analyse-saisonniere.html">Saisons</a>
+            <a href="/scenarios.html">Scenarios</a>
+            <a href="/transparence.html">Transparence</a>
+        </nav>
+    </header>
+
+    <main class="workspace">
+        <aside class="control-panel">
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Filtres</p>
+                    <h2>Perimetre d'analyse</h2>
+                </div>
+                <label class="field">
+                    <span>Date de debut</span>
+                    <input type="date" id="startDate" value="2014-01-01">
+                </label>
+                <label class="field">
+                    <span>Date de fin</span>
+                    <input type="date" id="endDate" value="2014-12-31">
+                </label>
+                <div class="field">
+                    <div class="field-row">
+                        <span>Departements</span>
+                        <button type="button" class="link-button" id="toggleDepartments">Tout deselectionner</button>
+                    </div>
+                    <div id="departmentChecklist" class="department-checklist"></div>
+                </div>
+                <div class="button-row">
+                    <button id="applyFilters" class="primary-button" type="button">Actualiser</button>
+                    <button id="resetFilters" class="secondary-button" type="button">Reinitialiser</button>
+                </div>
+            </section>
+
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Donnees</p>
+                    <h2>Chargees par le backend</h2>
+                </div>
+                <p class="panel-note">Les CSV ne sont plus fournis par l'utilisateur depuis cette interface.</p>
+                <p class="panel-note">Si la base est vide, le backend initialise automatiquement les donnees depuis le zip configure.</p>
+            </section>
+
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Couverture</p>
+                    <h2>Etat des donnees</h2>
+                </div>
+                <div id="coveragePanel" class="mini-stats"></div>
+            </section>
+        </aside>
+
+        <section class="content-grid">
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Synthese</p>
+                    <h2>Vue rapide du projet</h2>
+                </div>
+                <div id="summaryCards" class="metric-grid"></div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Tendances quotidiennes normalisees</h3>
+                        <p>On compare ici la forme generale de la consommation et des variables meteo.</p>
+                    </div>
+                    <div id="trendChart" class="chart-host"></div>
+                </div>
+            </article>
+
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Parcours</p>
+                    <h2>Explorer le dashboard par ecran</h2>
+                </div>
+                <div class="story-grid">
+                    <a class="story-card" href="/vue-ensemble.html">
+                        <strong>Vue d'ensemble</strong>
+                        <span>Carte du Grand Est, couverture des donnees et vue rapide du territoire.</span>
+                    </a>
+                    <a class="story-card" href="/explorer.html">
+                        <strong>Explorer</strong>
+                        <span>Profils meteo des departements selectionnes et courbes mensuelles.</span>
+                    </a>
+                    <a class="story-card" href="/relation.html">
+                        <strong>Relation</strong>
+                        <span>Nuage de points et tranches de temperature pour lire la sensibilite de la demande.</span>
+                    </a>
+                    <a class="story-card" href="/analyse-saisonniere.html">
+                        <strong>Saisons</strong>
+                        <span>Comparaison hiver, printemps, ete et automne sur les observations jointes.</span>
+                    </a>
+                    <a class="story-card" href="/scenarios.html">
+                        <strong>Scenarios</strong>
+                        <span>Simulation simple a partir de la regression lineaire calculee sur les donnees filtrees.</span>
+                    </a>
+                    <a class="story-card" href="/transparence.html">
+                        <strong>Transparence</strong>
+                        <span>Sources ouvertes, traitements appliques et limites assumees du projet.</span>
+                    </a>
+                </div>
+            </article>
+
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Territoire</p>
+                    <h2>Perimetre retenu</h2>
+                </div>
+                <div id="territoryOverview" class="territory-grid"></div>
+                <div class="note-grid">
+                    <div class="focus-card">
+                        <strong>Jeu de donnees</strong>
+                        <p>Le projet travaille sur l'annee 2014 et les 10 departements du Grand Est definis dans le rapport.</p>
+                    </div>
+                    <div class="focus-card">
+                        <strong>Aggregation</strong>
+                        <p>La consommation affichee est regionale, tandis que les indicateurs meteo sont filtres par departement.</p>
+                    </div>
+                    <div class="focus-card">
+                        <strong>Navigation</strong>
+                        <p>Chaque page du dashboard reutilise les memes filtres pour comparer les vues sans recharger les donnees inutilement.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p>Projet Genie Logiciel | Universite de Lorraine | Donnees ouvertes RTE et Meteo-France</p>
+    </footer>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<script src="/app.js"></script>
+</body>
+</html>

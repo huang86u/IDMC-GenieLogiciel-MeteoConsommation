@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meteo &amp; Consommation - Transparence</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="transparency">
+<div class="page-shell">
+    <header class="hero hero-page">
+        <div class="hero-grid">
+            <div>
+                <p class="eyebrow">Genie Logiciel | Grand Est 2014</p>
+                <span class="page-tag">Transparence</span>
+                <h1>Sources, traitements et limites du projet</h1>
+                <p class="hero-copy">
+                    Cette page rend explicite ce qui entre dans le modele, comment les imports sont filtres
+                    et quelles limites encadrent la lecture des resultats.
+                </p>
+            </div>
+            <aside class="hero-note">
+                <strong>Traceabilite</strong>
+                <p>Cette vue montre que le projet est reproductible, source et explicite sur ses hypotheses de travail.</p>
+            </aside>
+        </div>
+        <div id="heroHighlights" class="hero-highlights"></div>
+        <nav class="section-nav">
+            <a href="/index.html">Accueil</a>
+            <a href="/vue-ensemble.html">Vue d'ensemble</a>
+            <a href="/explorer.html">Explorer</a>
+            <a href="/relation.html">Relation</a>
+            <a href="/analyse-saisonniere.html">Saisons</a>
+            <a href="/scenarios.html">Scenarios</a>
+            <a href="/transparence.html" class="is-active">Transparence</a>
+        </nav>
+    </header>
+
+    <main class="workspace">
+        <aside class="control-panel">
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Filtres</p>
+                    <h2>Perimetre d'analyse</h2>
+                </div>
+                <label class="field">
+                    <span>Date de debut</span>
+                    <input type="date" id="startDate" value="2014-01-01">
+                </label>
+                <label class="field">
+                    <span>Date de fin</span>
+                    <input type="date" id="endDate" value="2014-12-31">
+                </label>
+                <div class="field">
+                    <div class="field-row">
+                        <span>Departements</span>
+                        <button type="button" class="link-button" id="toggleDepartments">Tout deselectionner</button>
+                    </div>
+                    <div id="departmentChecklist" class="department-checklist"></div>
+                </div>
+                <div class="button-row">
+                    <button id="applyFilters" class="primary-button" type="button">Actualiser</button>
+                    <button id="resetFilters" class="secondary-button" type="button">Reinitialiser</button>
+                </div>
+            </section>
+
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Donnees</p>
+                    <h2>Chargees par le backend</h2>
+                </div>
+                <p class="panel-note">Cette page documente justement le fait que les datasets sont geres cote backend.</p>
+                <p class="panel-note">Le navigateur n'est plus responsable du depot des CSV.</p>
+            </section>
+
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Couverture</p>
+                    <h2>Etat des donnees</h2>
+                </div>
+                <div id="coveragePanel" class="mini-stats"></div>
+            </section>
+        </aside>
+
+        <section class="content-grid">
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Traceabilite</p>
+                    <h2>Sources et traitements</h2>
+                </div>
+                <div class="transparency-grid">
+                    <div class="list-card">
+                        <h3>Sources</h3>
+                        <ul id="sourcesList"></ul>
+                    </div>
+                    <div class="list-card">
+                        <h3>Traitements</h3>
+                        <ul id="stepsList"></ul>
+                    </div>
+                    <div class="list-card">
+                        <h3>Notes</h3>
+                        <ul id="notesList"></ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Resume</p>
+                    <h2>Perimetre et couverture</h2>
+                </div>
+                <div id="territoryOverview" class="territory-grid"></div>
+                <div class="note-grid">
+                    <div class="focus-card">
+                        <strong>Imports documentes</strong>
+                        <p>Les traitements de chargement et de filtrage sont explicitement exposes pour eviter tout effet de boite noire.</p>
+                    </div>
+                    <div class="focus-card">
+                        <strong>Perimetre technique</strong>
+                        <p>Les CSV sont filtres sur 2014 et sur les departements du Grand Est, avec deduplication et validation.</p>
+                    </div>
+                    <div class="focus-card">
+                        <strong>Usage du resultat</strong>
+                        <p>Le projet fournit une analyse demonstrative et reproductible, sans pretendre a une prevision industrielle complete.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Synthese</p>
+                    <h2>Indicateurs globaux</h2>
+                </div>
+                <div id="summaryCards" class="metric-grid"></div>
+            </article>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p>Transparence des donnees | Sources, nettoyage et hypotheses explicites</p>
+    </footer>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<script src="/app.js"></script>
+</body>
+</html>

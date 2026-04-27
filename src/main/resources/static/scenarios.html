@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meteo &amp; Consommation - Scenarios</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="scenarios">
+<div class="page-shell">
+    <header class="hero hero-page">
+        <div class="hero-grid">
+            <div>
+                <p class="eyebrow">Genie Logiciel | Grand Est 2014</p>
+                <span class="page-tag">Scenarios</span>
+                <h1>Tester des conditions meteo et obtenir une estimation</h1>
+                <p class="hero-copy">
+                    Cette page transforme la maquette "scenarios" en outil reellement utilisable:
+                    on remplit un formulaire, on envoie les valeurs a l'API et on obtient une estimation basee sur la regression.
+                </p>
+            </div>
+            <aside class="hero-note">
+                <strong>Modele</strong>
+                <p>Le calcul utilise les donnees filtrees a l'ecran. Si le modele n'est pas pret, l'interface l'indique clairement.</p>
+            </aside>
+        </div>
+        <div id="heroHighlights" class="hero-highlights"></div>
+        <nav class="section-nav">
+            <a href="/index.html">Accueil</a>
+            <a href="/vue-ensemble.html">Vue d'ensemble</a>
+            <a href="/explorer.html">Explorer</a>
+            <a href="/relation.html">Relation</a>
+            <a href="/analyse-saisonniere.html">Saisons</a>
+            <a href="/scenarios.html" class="is-active">Scenarios</a>
+            <a href="/transparence.html">Transparence</a>
+        </nav>
+    </header>
+
+    <main class="workspace">
+        <aside class="control-panel">
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Filtres</p>
+                    <h2>Perimetre d'analyse</h2>
+                </div>
+                <label class="field">
+                    <span>Date de debut</span>
+                    <input type="date" id="startDate" value="2014-01-01">
+                </label>
+                <label class="field">
+                    <span>Date de fin</span>
+                    <input type="date" id="endDate" value="2014-12-31">
+                </label>
+                <div class="field">
+                    <div class="field-row">
+                        <span>Departements</span>
+                        <button type="button" class="link-button" id="toggleDepartments">Tout deselectionner</button>
+                    </div>
+                    <div id="departmentChecklist" class="department-checklist"></div>
+                </div>
+                <div class="button-row">
+                    <button id="applyFilters" class="primary-button" type="button">Actualiser</button>
+                    <button id="resetFilters" class="secondary-button" type="button">Reinitialiser</button>
+                </div>
+            </section>
+
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Donnees</p>
+                    <h2>Chargees par le backend</h2>
+                </div>
+                <p class="panel-note">Le modele utilise les donnees chargees par le backend au demarrage.</p>
+                <p class="panel-note">Le frontend ne sert plus a pousser les fichiers du dataset.</p>
+            </section>
+
+            <section class="panel-card">
+                <div class="section-heading">
+                    <p class="kicker">Couverture</p>
+                    <h2>Etat des donnees</h2>
+                </div>
+                <div id="coveragePanel" class="mini-stats"></div>
+            </section>
+        </aside>
+
+        <section class="content-grid">
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Modele</p>
+                    <h2>Indicateurs disponibles</h2>
+                </div>
+                <div id="summaryCards" class="metric-grid"></div>
+            </article>
+
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Simulation</p>
+                    <h2>Construire un scenario</h2>
+                </div>
+                <div class="scenario-layout">
+                    <form id="estimateForm" class="scenario-form">
+                        <label class="field">
+                            <span>Temperature (deg C)</span>
+                            <input type="number" step="0.1" id="scenarioTemperature">
+                        </label>
+                        <label class="field">
+                            <span>Humidite (%)</span>
+                            <input type="number" step="0.1" id="scenarioHumidity">
+                        </label>
+                        <label class="field">
+                            <span>Vent</span>
+                            <input type="number" step="0.1" id="scenarioWind">
+                        </label>
+                        <label class="field">
+                            <span>Precipitations</span>
+                            <input type="number" step="0.1" id="scenarioRain">
+                        </label>
+                        <button type="submit" class="primary-button">Estimer la consommation</button>
+                    </form>
+                    <div id="estimateResult" class="estimate-card"></div>
+                </div>
+            </article>
+
+            <article class="content-card">
+                <div class="section-heading">
+                    <p class="kicker">Preregler</p>
+                    <h2>Scenarios predefinis</h2>
+                </div>
+                <div class="story-grid">
+                    <button type="button" class="story-card scenario-preset" data-temperature="-5" data-humidity="82" data-wind="24" data-rain="1">
+                        <strong>Vague de froid</strong>
+                        <span>Charge les valeurs d'un episode hivernal froid et venteux.</span>
+                    </button>
+                    <button type="button" class="story-card scenario-preset" data-temperature="18" data-humidity="55" data-wind="8" data-rain="0">
+                        <strong>Journee douce</strong>
+                        <span>Un cas printanier tempere, utile pour comparer avec le froid.</span>
+                    </button>
+                    <button type="button" class="story-card scenario-preset" data-temperature="31" data-humidity="42" data-wind="6" data-rain="0">
+                        <strong>Episode chaud</strong>
+                        <span>Scenario estival plus sec et plus chaud.</span>
+                    </button>
+                    <button type="button" class="story-card scenario-preset" data-temperature="8" data-humidity="90" data-wind="45" data-rain="12">
+                        <strong>Pluie et vent</strong>
+                        <span>Cas automnal plus humide pour tester un contexte moins stable.</span>
+                    </button>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p>Scenarios et estimation | Formulaire branche a l'API de regression du projet</p>
+    </footer>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<script src="/app.js"></script>
+</body>
+</html>
