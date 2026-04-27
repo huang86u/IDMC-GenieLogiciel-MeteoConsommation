@@ -40,6 +40,9 @@ public class ImportDonneesService {
         }
 
         try {
+            // Delete les données avant importation pour eviter doublon
+            repository.deleteAllInBatch();
+            
             return importerFluxRte(file.getOriginalFilename(), file.getInputStream());
         } catch (Exception exception) {
             throw new RuntimeException("Erreur lors de la lecture du fichier CSV RTE", exception);
