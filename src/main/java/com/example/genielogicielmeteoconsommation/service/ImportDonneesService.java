@@ -2,12 +2,14 @@ package com.example.genielogicielmeteoconsommation.service;
 
 import com.example.genielogicielmeteoconsommation.model.ConsommationElectrique;
 import com.example.genielogicielmeteoconsommation.repository.ConsommationElectriqueRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -17,16 +19,22 @@ import java.util.List;
 @Service
 public class ImportDonneesService {
 
-    @Autowired
-    private ConsommationElectriqueRepository repository;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ImportDonneesService.class);
+    private static final int TAILLE_LOT = 1000;
+
+    private final ConsommationElectriqueRepository repository;
+
+    public ImportDonneesService(ConsommationElectriqueRepository repository) {
+        this.repository = repository;
+    }
 
     public void importerFichierRte(MultipartFile file) {
         List<ConsommationElectrique> listeAEnregistrer = new ArrayList<>();
 
-        // CORRECTION 1 : Le bon format de date pour votre fichier
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        int nombreLignesEnregistrees = 0;
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
             String ligne;
             boolean premiereLigne = true;
 
@@ -36,12 +44,13 @@ public class ImportDonneesService {
                     continue;
                 }
 
-                String[] colonnes = ligne.split(";");
-                if(colonnes.length < 5) continue;
+                String[] colonnes = ligne.split(";", -1);
+                if (colonnes.length < 5) {
+                    continue;
+                }
 
                 String region = colonnes[0].trim();
 
-                // CORRECTION 2 : J'ajoute "France" temporairement pour que vous puissiez tester votre fichier
                 if (region.equalsIgnoreCase("France") || region.equalsIgnoreCase("Grand Est") ||
                         region.equalsIgnoreCase("Alsace") || region.equalsIgnoreCase("Champagne-Ardenne") ||
                         region.equalsIgnoreCase("Lorraine")) {
@@ -55,29 +64,41 @@ public class ImportDonneesService {
                         ConsommationElectrique conso = new ConsommationElectrique();
                         conso.setRegion(region);
 
-                        // On utilise le nouveau formateur de date
-                        conso.setDate(LocalDate.parse(colonnes[2].trim(), dateFormatter));
+                        LocalDate date = LocalDate.parse(colonnes[2].trim(), dateFormatter);
 
                         String heureStr = colonnes[3].trim();
-                        if(heureStr.equals("24:00")) heureStr = "00:00";
+                        if (heureStr.equals("24:00")) {
+                            heureStr = "00:00";
+                            date = date.plusDays(1);
+                        }
+
+                        conso.setDate(date);
                         conso.setHeure(LocalTime.parse(heureStr));
 
                         conso.setConsommationMw(Double.parseDouble(consoStr.replace(",", ".")));
 
                         listeAEnregistrer.add(conso);
+
+                        if (listeAEnregistrer.size() >= TAILLE_LOT) {
+                            repository.saveAll(listeAEnregistrer);
+                            nombreLignesEnregistrees += listeAEnregistrer.size();
+                            listeAEnregistrer.clear();
+                        }
                     } catch (Exception e) {
-                        // Pour le test, on peut afficher l'erreur pour comprendre ce qui bloque
-                        System.out.println("Erreur sur la ligne : " + ligne);
+                        LOGGER.warn("Ligne RTE ignoree car invalide: {}", ligne, e);
                     }
                 }
             }
 
-            repository.saveAll(listeAEnregistrer);
-            System.out.println("Importation terminée : " + listeAEnregistrer.size() + " lignes ajoutées !");
+            if (!listeAEnregistrer.isEmpty()) {
+                repository.saveAll(listeAEnregistrer);
+                nombreLignesEnregistrees += listeAEnregistrer.size();
+            }
+
+            LOGGER.info("Importation RTE terminee: {} lignes ajoutees", nombreLignesEnregistrees);
 
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Erreur lors de la lecture du fichier CSV");
+            throw new IllegalStateException("Erreur lors de la lecture du fichier CSV", e);
         }
     }
 }

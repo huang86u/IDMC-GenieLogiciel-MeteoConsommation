@@ -2,12 +2,14 @@ package com.example.genielogicielmeteoconsommation.service;
 
 import com.example.genielogicielmeteoconsommation.model.DonneesMeteo;
 import com.example.genielogicielmeteoconsommation.repository.DonneesMeteoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -18,18 +20,24 @@ import java.util.List;
 @Service
 public class ImportMeteoService {
 
-    @Autowired
-    private DonneesMeteoRepository meteoRepository;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ImportMeteoService.class);
+    private static final int TAILLE_LOT = 1000;
+
+    private final DonneesMeteoRepository meteoRepository;
+
+    public ImportMeteoService(DonneesMeteoRepository meteoRepository) {
+        this.meteoRepository = meteoRepository;
+    }
 
     public void importerFichierMeteo(MultipartFile file) {
         List<DonneesMeteo> listeAEnregistrer = new ArrayList<>();
 
-        // Le format de Météo-France: AAAAMMJJHH
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHH");
         ZoneId zoneUtc = ZoneId.of("UTC");
         ZoneId zoneParis = ZoneId.of("Europe/Paris");
+        int nombreLignesEnregistrees = 0;
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
             String ligne;
             boolean premiereLigne = true;
 
@@ -39,10 +47,12 @@ public class ImportMeteoService {
                     continue; // On passe la ligne d'en-tête
                 }
 
-                String[] colonnes = ligne.split(";");
+                String[] colonnes = ligne.split(";", -1);
 
                 // Si la ligne est trop courte, on l'ignore
-                if(colonnes.length < 77) continue;
+                if (colonnes.length < 77) {
+                    continue;
+                }
 
                 try {
                     String numPoste = colonnes[0].trim();
@@ -73,17 +83,29 @@ public class ImportMeteoService {
 
                     listeAEnregistrer.add(meteo);
 
+                    if (listeAEnregistrer.size() >= TAILLE_LOT) {
+                        meteoRepository.saveAll(listeAEnregistrer);
+                        nombreLignesEnregistrees += listeAEnregistrer.size();
+                        listeAEnregistrer.clear();
+                    }
                 } catch (Exception e) {
-                    // On ignore les lignes où le parsing de la date ou des nombres échoue
+                    LOGGER.warn("Ligne meteo ignoree car invalide: {}", ligne, e);
                 }
             }
 
-            meteoRepository.saveAll(listeAEnregistrer);
-            System.out.println("Importation météo terminée pour le fichier " + file.getOriginalFilename() + " : " + listeAEnregistrer.size() + " lignes ajoutées !");
+            if (!listeAEnregistrer.isEmpty()) {
+                meteoRepository.saveAll(listeAEnregistrer);
+                nombreLignesEnregistrees += listeAEnregistrer.size();
+            }
+
+            LOGGER.info(
+                    "Importation meteo terminee pour le fichier {}: {} lignes ajoutees",
+                    file.getOriginalFilename(),
+                    nombreLignesEnregistrees
+            );
 
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Erreur lors de la lecture du fichier météo");
+            throw new IllegalStateException("Erreur lors de la lecture du fichier meteo", e);
         }
     }
 

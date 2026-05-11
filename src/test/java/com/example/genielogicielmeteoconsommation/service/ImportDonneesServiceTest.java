@@ -49,4 +49,22 @@ public class ImportDonneesServiceTest {
         assertEquals(5500.5, savedList.get(0).getConsommationMw());
         assertEquals("2014-01-01", savedList.get(0).getDate().toString());
     }
+
+    @Test
+    public void testImporterFichierRte_Convertit24hAuJourSuivant() throws Exception {
+        String csvContent = "Périmètre;Nature;Date;Heures;Consommation\n" +
+                "Grand Est;Def;01/01/2014;24:00;5500.5\n";
+
+        MockMultipartFile mockFile = new MockMultipartFile("file", "test.csv", "text/csv", csvContent.getBytes());
+
+        importService.importerFichierRte(mockFile);
+
+        ArgumentCaptor<List<ConsommationElectrique>> captor = ArgumentCaptor.forClass(List.class);
+        verify(repository).saveAll(captor.capture());
+
+        ConsommationElectrique consommation = captor.getValue().get(0);
+
+        assertEquals("2014-01-02", consommation.getDate().toString());
+        assertEquals("00:00", consommation.getHeure().toString());
+    }
 }
